@@ -8,5 +8,11 @@ import com.clei.entity.Dog;
 
 @Mapper
 public interface DogMapper {
-	Collection<Dog> selectAll();
+
+	Dog getById(Integer id);
+
+	Collection<Dog> getAll();
+
+	Integer add(Dog dog);
+
 }
