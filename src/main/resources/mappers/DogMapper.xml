@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clei.mapper.DogMapper">
 
-	<select id="selectAll" resultType="com.clei.entity.Dog">
-		select * from dog
+	<resultMap id="dog" type="com.clei.entity.Dog">
+		<id column="id" property="id"></id>
+		<result column="name" property="name"></result>
+		<result column="color" property="color"></result>
+	</resultMap>
+
+	<select id="getById" resultMap="dog" parameterType="java.lang.Integer">
+		select id,dog.name,color from dog where id = #{id}
 	</select>
+
+	<select id="getAll" resultMap="dog">
+		select id,dog.name,color from dog
+	</select>
+
+	<insert id="add" parameterType="com.clei.entity.Dog" useGeneratedKeys="true" keyProperty="id">
+		insert into dog(name,color) values(#{name},#{color})
+	</insert>
   
 </mapper>
