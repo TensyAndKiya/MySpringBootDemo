@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<input>
-
-<input id="dId" type="text" ></input>
+<body>
+<input id="dId" type="text" />
 <button id="gBI" type="button">id检索</button><br/>
 <button id="gA" type="button">检索所有</button>
 <h5>name: <input id="aN" type="text" /> color: <input id="aC" type="text" /><button id="add" type="button">新增</button></h5>
@@ -47,7 +45,7 @@
         $("#add").click(function(){
             var name = $("#aN").val();
             var color = $("#aC").val();
-            $.post("/dog/add", {name: name, color: color}, function(data){
+            $.post("/dog/add", {name: name, color: color}, function(){
                 $("#gA").click();
             });
         });

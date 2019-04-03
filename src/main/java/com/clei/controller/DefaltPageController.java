@@ -15,4 +15,9 @@ public class DefaltPageController {
     public String dog(){
         return "dog";
     }
+
+    @RequestMapping("/chat")
+    public String chat(){
+        return "chat";
+    }
 }
