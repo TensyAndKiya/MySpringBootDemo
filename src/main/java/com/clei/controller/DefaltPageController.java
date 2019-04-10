@@ -15,9 +15,4 @@ public class DefaltPageController {
     public String dog(){
         return "dog";
     }
-
-    @RequestMapping("/dogPage")
-    public String dogPage(){
-        return "dogPage";
-    }
 }

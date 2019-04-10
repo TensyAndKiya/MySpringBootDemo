@@ -7,7 +7,7 @@
   <groupId>com.clei</groupId>
   <artifactId>MySpringBootDemo</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>MySpringBootDemo Maven Webapp</name>
   <url>http://www.example.com</url>
 
@@ -28,6 +28,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -56,7 +60,48 @@
   </dependencies>
 
   <build>
-    <finalName>MySpringBoottDemo</finalName>
+    <finalName>MyBoot</finalName>
+
+
+    <plugins>
+      <!--用于maven打包时候会自动生成主清单-->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <!--换了几个版本。。2.1.0。。2.1.3等。。-->
+        <version>1.4.2.RELEASE</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <useDefaultDelimiters>true</useDefaultDelimiters>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <!--解决jsp找不到的问题-->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/webapp</directory>
+        <!--注意  必须放在此目录下才能被访问到-->
+        <targetPath>META-INF/resources</targetPath>
+        <includes>
+          <include>**/**</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resource</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
   </build>
 
 </project>

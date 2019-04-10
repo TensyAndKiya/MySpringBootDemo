@@ -6,7 +6,6 @@ public class Dog {
 	private String color;
 	public Dog() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Dog(Integer id, String name, String color) {
 		super();
