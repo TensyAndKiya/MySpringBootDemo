@@ -15,4 +15,9 @@ public class DefaltPageController {
     public String dog(){
         return "dog";
     }
+
+    @RequestMapping("/tempOrder")
+    public String tempOrder(){
+        return "tempOrder";
+    }
 }

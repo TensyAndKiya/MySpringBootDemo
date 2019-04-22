@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clei.mapper.OrderMapper">
+
+	<select id="selectCount" resultType="int" parameterType="java.util.Map">
+		SELECT
+		count(t.id)
+		FROM
+		${tableName} t
+		WHERE
+		t.parking_lot_id=#{parkLotId}
+		AND t.type = #{orderType}
+		AND t.status = '3'
+		AND t.del_flag = '0'
+		<if test="startDate != '' and startDate != null">
+			AND t.order_end_time >= #{startDate}
+		</if>
+		<if test="endDate != '' and endDate != null">
+			AND #{endDate} >= t.order_end_time
+		</if>
+		<if test="carLicense != '' and carLicense != null">
+			AND t.car_license LIKE #{carLicense}
+		</if>
+	</select>
+
+	<select id="selectPage" resultType="java.util.Map" parameterType="java.util.Map">
+		<foreach collection="tables" item="order" separator=" UNION ">
+			( SELECT
+			t.id,
+			t.car_license AS carLicense,
+			substring(t.order_start_time, 1, 19) AS startTime,
+			substring(t.order_end_time, 1, 19) AS endTime,
+			t.remarks as description,
+			t.passageway_id_entrance as startPass,
+			t.passageway_id_exit AS endPass,
+			t.total_price AS price,
+			CASE t.type
+			WHEN 0 THEN '临停用户'
+			WHEN 1 THEN '包月用户'
+			WHEN 2 THEN '注册用户'
+			END AS type
+			FROM
+			${order.name} t
+			WHERE
+			t.parking_lot_id=#{parkLotId}
+			AND t.type = #{orderType}
+			AND t.status = '3'
+			AND t.del_flag = '0'
+			<if test="startDate != '' and startDate != null">
+				AND t.order_end_time >= #{order.start}
+			</if>
+			<if test="endDate != '' and endDate != null">
+				AND #{order.end} >= t.order_end_time
+			</if>
+			<if test="carNumber != '' and carLicense != null">
+				AND t.car_license LIKE #{carLicense}
+			</if>
+			ORDER BY
+			t.order_end_time DESC LIMIT #{order.limit} OFFSET #{order.offset} )
+		</foreach>
+	</select>
+  
+</mapper>
