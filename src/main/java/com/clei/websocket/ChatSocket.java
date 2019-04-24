@@ -40,7 +40,7 @@ public class ChatSocket {
         System.out.println("来自客户端的消息： "+ message);
         try {
             sendMessage2Group(message);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "GETMESSAGE");
         }
     }
@@ -55,8 +55,9 @@ public class ChatSocket {
         //this.session.getAsyncRemote().sendText(message);
     }
 
-    public void sendMessage2Group(String message) throws IOException {
+    public static void sendMessage2Group(String message) throws Exception {
         for(ChatSocket cs : ChatSocket.websocketSet){
+            Thread.sleep(2000);
             cs.sendMessage(message);
         }
     }

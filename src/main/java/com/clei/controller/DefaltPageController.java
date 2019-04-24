@@ -16,6 +16,11 @@ public class DefaltPageController {
         return "dog";
     }
 
+    @RequestMapping("/chat")
+    public String chat(){
+        return "chat";
+    }
+
     @RequestMapping("/tempOrder")
     public String tempOrder(){
         return "tempOrder";

@@ -8,8 +8,9 @@
 
 <body>
 
-<input type="text" id="message" /><button onclick="sendMessage()">Send Message</button>
-<button onclick="closeChat()">Close Chat</button>
+<input type="text" id="message" /><button onclick="sendMessage()">Send Message</button><br/>
+<input type="text" id="groupMessage" /><button onclick="sendMessage2Group()">Send Message</button><br/>
+<button onclick="closeChat()">Close Chat</button><br/>
 <div id="messageDiv">
 
 </div>
@@ -33,6 +34,7 @@
             setMessageInnerHtml("OPEN");
         };
         websocket.onmessage = function(event){
+            //即使function括号里没写参数。。使用event也可以获取到。。
             setMessageInnerHtml(event.data);
         };
         websocket.onclose = function(){
@@ -59,6 +61,14 @@
         if(null !== websocket){
             var message = $("#message").val();
             websocket.send(message);
+        }
+    }
+    function sendMessage2Group(){
+        if(null !== websocket){
+            var message = $("#groupMessage").val();
+            $.get("/chat/send",{str:message},function(data){
+                console.log(data);
+            });
         }
     }
 
