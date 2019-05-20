@@ -9,7 +9,7 @@
 <body>
 
 <input type="text" id="message" /><button onclick="sendMessage()">Send Message</button><br/>
-<input type="text" id="groupMessage" /><button onclick="sendMessage2Group()">Send Message</button><br/>
+<input type="text" id="groupMessage" /><button onclick="sendMessage2Group()">Send Message To EveryOne</button><br/>
 <button onclick="closeChat()">Close Chat</button><br/>
 <div id="messageDiv">
 
