@@ -57,6 +57,13 @@
       <artifactId>mysql-connector-java</artifactId>
       <!--<version>6.0.6</version>-->
     </dependency>
+    <!--fastjson相关jar包-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.58</version>
+    </dependency>
+
   </dependencies>
 
   <build>
