@@ -2,6 +2,7 @@ package com.clei.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,6 +14,12 @@ public class DefaultPageController {
     @RequestMapping("/")
     public String index(){
         return "index";
+    }
+
+    @GetMapping("test")
+    @ResponseBody
+    public String test(){
+        return "test success!";
     }
 
     @RequestMapping("/dog")
