@@ -1,20 +1,21 @@
 package com.clei.service;
 
 import com.clei.entity.Dog;
+import com.clei.mapper.DogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.clei.mapper.DogMapper;
 
 import java.util.Collection;
 
 @Service
 public class DogService {
-	
 	@Autowired
 	DogMapper dogMapper;
 
 	public Dog getById(Integer id){
+		if(id == 1){
+			throw new RuntimeException("哈哈哈，想不到吧！！！");
+		}
 		return dogMapper.getById(id);
 	}
 

@@ -9,7 +9,7 @@
 <body>
 
 <input type="text" id="message" /><button onclick="sendMessage()">Send Message</button><br/>
-<input type="text" id="groupMessage" /><button onclick="sendMessage2Group()">Send Message</button><br/>
+<input type="text" id="groupMessage" /><button onclick="sendMessage2Group()">Send Message To EveryOne</button><br/>
 <button onclick="closeChat()">Close Chat</button><br/>
 <div id="messageDiv">
 
@@ -20,6 +20,7 @@
 <script type="text/javascript">
     var websocket = null;
     if('WebSocket' in window){
+        //之前没注意，原来这个要写完整的服务器的url地址啊。。
         websocket = new WebSocket("ws://localhost:8888/socket/chat");
     }else{
         alert("您的浏览器不支持WebSocket！请换个浏览器再访问本站！");

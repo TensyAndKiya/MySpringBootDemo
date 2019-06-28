@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint(value = "/socket/chat")
 @Component
 public class ChatSocket {
-    private static int onlineCount = 0;
+    private static volatile int onlineCount = 0;
     private static CopyOnWriteArraySet<ChatSocket> websocketSet = new CopyOnWriteArraySet<>();
     private Session session;
 
@@ -57,7 +57,6 @@ public class ChatSocket {
 
     public static void sendMessage2Group(String message) throws Exception {
         for(ChatSocket cs : ChatSocket.websocketSet){
-            Thread.sleep(2000);
             cs.sendMessage(message);
         }
     }
@@ -70,7 +69,7 @@ public class ChatSocket {
         ChatSocket.onlineCount--;
     }
 
-    public static synchronized  int getOnlineCount(){
+    public static int getOnlineCount(){
         return ChatSocket.onlineCount;
     }
 
