@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>INDEX</title>
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
 <h2>Hello World!</h2>
@@ -26,7 +26,7 @@
             };
             $.ajax({
                 type: "GET",
-                url: "/jsonTest",
+                url: "jsonTest",
                 data: {
                     json: JSON.stringify(data)
                 },
