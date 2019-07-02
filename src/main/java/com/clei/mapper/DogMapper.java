@@ -1,6 +1,8 @@
 package com.clei.mapper;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +17,5 @@ public interface DogMapper {
 
 	Integer add(Dog dog);
 
+    List<Map<String, Object>> testSelect(Map<String, Object> paramMap);
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class DogService {
@@ -26,4 +28,8 @@ public class DogService {
 	public Integer add(Dog dog){
 		return  dogMapper.add(dog);
 	}
+
+    public List<Map<String, Object>> testSelect(Map<String, Object> paramMap) {
+		return dogMapper.testSelect(paramMap);
+    }
 }

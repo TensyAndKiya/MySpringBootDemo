@@ -16,6 +16,18 @@
 		select id,dog.name,color from dog
 	</select>
 
+	<select id="testSelect" parameterType="java.util.Map" resultType="java.util.Map">
+		<foreach collection="list" separator=" UNION " item="item">
+			( SELECT id,d.name,color,age
+			FROM dog d
+			WHERE age > #{age}
+			AND d.name=#{item.name}
+			AND color=#{item.color}
+			AND is_ignore=0
+			LIMIT 1 )
+		</foreach>
+	</select>
+
 	<insert id="add" parameterType="com.clei.entity.Dog" useGeneratedKeys="true" keyProperty="id">
 		insert into dog(name,color) values(#{name},#{color})
 	</insert>

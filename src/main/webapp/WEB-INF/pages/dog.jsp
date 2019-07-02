@@ -59,7 +59,7 @@
             console.log(token);
             $.ajax({
                 type: "POST",
-                url: "/boot/dog/add",
+                url: "dog/add",
                 data: dog,
                 beforeSend: function(xhr){
                     xhr.setRequestHeader(header,token)

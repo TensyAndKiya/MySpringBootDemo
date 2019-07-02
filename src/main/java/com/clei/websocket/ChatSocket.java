@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint(value = "/socket/chat")
 @Component
 public class ChatSocket {
-    private static volatile int onlineCount = 0;
+    private static int onlineCount = 0;
     private static CopyOnWriteArraySet<ChatSocket> websocketSet = new CopyOnWriteArraySet<>();
     private Session session;
 
