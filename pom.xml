@@ -79,6 +79,22 @@
       <artifactId>fastjson</artifactId>
       <version>1.2.58</version>
     </dependency>
+    <!-- logback日志相关 -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-to-slf4j</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.26</version>
+    </dependency>
     <!--test-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -95,8 +111,8 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <!--换了几个版本。。2.1.0。。2.1.3等。。-->
-        <version>1.4.2.RELEASE</version>
+        <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
+        <version>2.1.6.RELEASE</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
