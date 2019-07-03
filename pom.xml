@@ -112,7 +112,14 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
-        <version>2.1.6.RELEASE</version>
+        <version>1.4.2.RELEASE</version>
+        <!--<executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
