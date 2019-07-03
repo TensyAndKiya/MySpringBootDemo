@@ -124,8 +124,9 @@
       </plugin>
     </plugins>
 
-    <!--解决jsp找不到的问题-->
+
     <resources>
+      <!--解决jsp找不到的问题-->
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
@@ -138,7 +139,21 @@
           <include>**/**</include>
         </includes>
       </resource>
+      <!-- maven profile -->
+      <resource>
+        <!--项目的默认资源目录，但是要排除不必要的文件，想要指定加入的再下面的resource指定 -->
+        <directory>${project.basedir}/src/main/resources</directory>
+        <excludes>
+          <exclude>home/*</exclude>
+          <exclude>company/*</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/resources/${profiles.active}</directory>
+        <filtering>true</filtering>
+      </resource>
     </resources>
+
     <testResources>
       <testResource>
         <directory>src/test/resource</directory>
@@ -147,4 +162,24 @@
     </testResources>
   </build>
 
+  <!-- maven profile -->
+  <profiles>
+    <!--公司开发环境 -->
+    <profile>
+      <id>company</id>
+      <properties>
+        <profiles.active>company</profiles.active>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+    <!-- home开发环境 -->
+    <profile>
+      <id>home</id>
+      <properties>
+        <profiles.active>home</profiles.active>
+      </properties>
+    </profile>
+  </profiles>
 </project>

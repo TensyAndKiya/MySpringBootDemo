@@ -1,6 +1,8 @@
 package com.clei.controller;
 
 import com.clei.entity.Dog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class DogController {
 
 	@Value("${application.hello:default value}")
 	private String hello;
+
+	private static Logger logger = LoggerFactory.getLogger(DogController.class);
 	
 	@RequestMapping(value="getOne",method=RequestMethod.GET)
 	@ResponseBody
@@ -38,9 +42,16 @@ public class DogController {
 		return dogService.add(dog);
 	}
 
+	/**
+	 * 改方法用于测试特殊的 参数 Map<String,Object> map Object里有String 有List
+	 * 来进行select
+	 * @return
+	 */
 	@RequestMapping(value="test",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Map<String,Object>> test(){
+		logger.info("测试使用logback来记录{}","日志");
+
 		Map<String,Object> paramMap = new HashMap<>();
 		List<Map<String,String>> paramList = new ArrayList<>();
 		Map<String,String> map = new HashMap<>();
