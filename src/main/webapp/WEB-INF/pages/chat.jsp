@@ -20,12 +20,13 @@
     var websocket = null;
     if('WebSocket' in window){
         //之前没注意，原来这个要写完整的服务器的url地址啊。。
-        websocket = new WebSocket("ws://localhost:8888/boot/socket/chat");
+        var url = "ws://localhost:8888/boot/socket/chat";
+        websocket = new WebSocket(url);
     }else{
         alert("您的浏览器不支持WebSocket！请换个浏览器再访问本站！");
     }
 
-    if(null !== websocket){
+    //if(null !== websocket){
         //websocket method
         websocket.onerror = function(){
             setMessageInnerHtml("ERROR!!!");
@@ -44,7 +45,7 @@
         window.onbeforeunload = function(){
             websocket.close();
         }
-    }
+    //}
 
     //js method
     function setMessageInnerHtml(message){

@@ -1,4 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+    String webUrl = request.getScheme() + "://" + request.getServerName()
+            + ":" + request.getServerPort() + "/";
+    // 放入request 使得用el表达式可以访问到
+    request.setAttribute("webUrl",webUrl);
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +22,10 @@
 <button onclick="jsonTest()">json test</button>
 
 <script type="text/javascript">
+
+    var url = '${webUrl}';
+    console.log(url);
+
         function jsonTest(){
             var data = {
                 name: "张三",
