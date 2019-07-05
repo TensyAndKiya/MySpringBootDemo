@@ -106,20 +106,20 @@
   <build>
     <finalName>MyBoot</finalName>
 
-    <plugins>
-      <!--用于maven打包时候会自动生成主清单-->
+    <!--<plugins>
+      &lt;!&ndash;用于maven打包时候会自动生成主清单&ndash;&gt;
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
+        &lt;!&ndash;换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用&ndash;&gt;
         <version>2.1.6.RELEASE</version>
-        <!--<executions>
+        &lt;!&ndash;<executions>
           <execution>
             <goals>
               <goal>repackage</goal>
             </goals>
           </execution>
-        </executions>-->
+        </executions>&ndash;&gt;
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -129,23 +129,23 @@
           <useDefaultDelimiters>true</useDefaultDelimiters>
         </configuration>
       </plugin>
-    </plugins>
+    </plugins>-->
 
 
     <resources>
-      <!--解决jsp找不到的问题-->
+      <!--解决jsp找不到的问题 注意  必须放在META-INF/resources目录下才能被访问到-->
+      <!-- 下面这段会导致target里的.ico文件有问题
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
       </resource>
       <resource>
         <directory>src/main/webapp</directory>
-        <!--注意  必须放在此目录下才能被访问到-->
-        <targetPath>META-INF/resources</targetPath>
+        <targetPath></targetPath>
         <includes>
           <include>**/**</include>
         </includes>
-      </resource>
+      </resource>-->
       <!-- maven profile -->
       <resource>
         <!--项目的默认资源目录，但是要排除不必要的文件，想要指定加入的再下面的resource指定 -->

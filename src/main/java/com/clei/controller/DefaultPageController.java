@@ -65,14 +65,14 @@ public class DefaultPageController {
     @ResponseBody
     public Map<String,Object> jsonTest(String json){
 
-        System.out.println(json);
+        logger.info(json);
         JSONObject jsonObject = null;
         if(null != json && !"".equals(json)){
             jsonObject = JSONObject.parseObject(json);
-            System.out.println(jsonObject.get("name").toString().equals("张三"));
-            System.out.println(jsonObject.get("age"));
-            System.out.println(jsonObject.get("weight"));
-            System.out.println(jsonObject.get("dog"));
+            logger.info("{}",jsonObject.get("name").toString().equals("张三"));
+            logger.info("{}",jsonObject.get("age"));
+            logger.info("{}",jsonObject.get("weight"));
+            logger.info("{}",jsonObject.get("dog"));
         }
         return jsonObject;
     }

@@ -18,6 +18,9 @@
         <property name="log.path" value="E:/Log/boot"></property>
     </springProfile>
 
+    <!--<springProperty scope="context" name="fluentHost" source="myapp.fluentd.host" defaultValue="localhost"/>
+   这样可以用${fluentHost} 来 引用 spring配置文件里的myapp.fluentd.host属性-->
+
     <property name="charset" value="UTF-8"></property>
     <property name="maxFileSize" value="200MB"></property>
     <property name="maxHistory" value="15"></property>
