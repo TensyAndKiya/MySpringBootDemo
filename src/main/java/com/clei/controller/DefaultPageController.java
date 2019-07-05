@@ -1,6 +1,7 @@
 package com.clei.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.clei.config.runner.ListStrConfig;
 import com.clei.constant.Global;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,9 @@ public class DefaultPageController {
     @Autowired
     private Global global;
 
+    @Autowired
+    ListStrConfig config;
+
     private static Logger logger = LoggerFactory.getLogger(DefaultPageController.class);
 
     // 普通spring web项目里得Controller使用@Value会有问题，
@@ -35,8 +39,10 @@ public class DefaultPageController {
     @GetMapping("test")
     @ResponseBody
     public String test(){
-        logger.info("This str:{},Global.str:{}",str,global.str);
-        logger.info("new Global:{}",new Global().str);
+        /*logger.info("This str:{},Global.str:{}",str,global.str);
+        logger.info("new Global:{}",new Global().str);*/
+
+        logger.info("{}",config.getStrs());
         return str == null ? global.str : str;
     }
 

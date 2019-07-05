@@ -7,10 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@Configuration
 //@EnableAutoConfiguration
 //@ComponentScan
-
 public class ServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServerApplication.class, args);
+        // SpringApplication.run(ServerApplication.class, args);
+        SpringApplication application = new SpringApplication(ServerApplication.class);
+        // application.setBannerMode(Banner.Mode.OFF); 不用banner
+        application.run(args);
     }
     /*@Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx){
