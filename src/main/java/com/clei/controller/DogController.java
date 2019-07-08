@@ -26,7 +26,11 @@ public class DogController {
 	
 	@RequestMapping(value="getOne",method=RequestMethod.GET)
 	@ResponseBody
-	public Dog getById(@RequestParam("id") Integer id){
+	public Dog getById(@RequestParam(value = "id") Integer id){
+		if(null == id){
+			logger.error("你竟然传个空值？？？");
+			return null;
+		}
 		return dogService.getById(id);
 	}
 
