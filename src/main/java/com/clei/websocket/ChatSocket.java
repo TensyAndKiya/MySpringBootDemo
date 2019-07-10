@@ -1,5 +1,7 @@
 package com.clei.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -13,17 +15,19 @@ public class ChatSocket {
     private static CopyOnWriteArraySet<ChatSocket> websocketSet = new CopyOnWriteArraySet<>();
     private Session session;
 
+    private static Logger logger = LoggerFactory.getLogger(ChatSocket.class);
+
     @OnOpen
     public void openSession(Session session){
         this.session = session;
         ChatSocket.websocketSet.add(this);
         ChatSocket.addOnlineCount();
         String message = "有新连接加入！当前在线人数为： "+getOnlineCount();
-        System.out.println(message);
+        logger.info(message);
         try {
             sendMessage(message);
         } catch (IOException e) {
-            System.out.println("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "OPENSESSION");
+            logger.info("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "OPENSESSION");
         }
     }
 
@@ -31,23 +35,22 @@ public class ChatSocket {
     public void closeSession(){
         ChatSocket.websocketSet.remove(this);
         ChatSocket.subOnlineCount();
-        String message = "有一连接关闭！当前在线人数为： "+getOnlineCount();
-        System.out.println(message);
+        logger.info("有一连接关闭！当前在线人数为： {}",getOnlineCount());
     }
 
     @OnMessage
     public void getMessage(String message, Session session){
-        System.out.println("来自客户端的消息： "+ message);
+        logger.info("来自客户端的消息： {}",message);
         try {
             sendMessage2Group(message);
         } catch (Exception e) {
-            System.out.println("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "GETMESSAGE");
+           logger.info("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "GETMESSAGE");
         }
     }
 
     @OnError
     public void onError(Session session, Throwable error){
-        System.out.println("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "ONERROR");
+        logger.info("ERROR!!!ERROR!!!ERROR!!!ERROR!!!" + "ONERROR");
     }
 
     public void sendMessage(String message) throws IOException {
