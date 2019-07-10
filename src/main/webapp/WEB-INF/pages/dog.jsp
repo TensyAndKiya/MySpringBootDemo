@@ -25,9 +25,18 @@
         // get by id
         $("#gBI").click(function () {
             var dId = $("#dId").val();
-            $.get("dog/getOne", {id: dId}, function (data) {
-                alert(JSON.stringify(data));
-            })
+            if(isNaN(dId) || dId < 1){
+                alert("请输入正整数！！！");
+            }else{
+                var str = "" + dId;
+                var i = str.indexOf(".");
+                if(i > 0){
+                    dId = str.substring(0,i);
+                }
+                $.get("dog/getOne", {id: dId}, function (data) {
+                    alert(JSON.stringify(data));
+                })
+            }
         });
         // get all
         $("#gA").click(function () {

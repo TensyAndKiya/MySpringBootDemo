@@ -1,4 +1,4 @@
-package com.clei.aop;
+package com.clei.config.aop;
 
 import java.util.Arrays;
 

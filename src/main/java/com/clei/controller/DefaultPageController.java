@@ -31,10 +31,10 @@ public class DefaultPageController {
     @Value("${application.hello}")
     private String str;
 
-    @RequestMapping("/")
+    /*@RequestMapping("/")
     public String index(){
         return "index";
-    }
+    }*/
 
     @GetMapping("test")
     @ResponseBody
