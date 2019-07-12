@@ -71,7 +71,7 @@
                 url: "dog/add",
                 data: dog,
                 beforeSend: function(xhr){
-                    xhr.setRequestHeader(header,token)
+                     xhr.setRequestHeader(header,token)
                 },
                 success: function(){
                     $("#gA").click();
