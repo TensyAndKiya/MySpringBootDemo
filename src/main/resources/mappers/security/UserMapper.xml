@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clei.mapper.security.UserMapper">
+
+	<sql id="base_column">login_name,nickname,password,gender,age,email</sql>
+	<sql id="total_column">id,login_name,nickname,password,gender,age,email</sql>
+
+	<resultMap id="user" type="com.clei.entity.security.User">
+		<id column="id" property="id"></id>
+		<result column="loginName" property="login_name" javaType="java.lang.String"></result>
+		<result column="nickname" property="nickname" javaType="java.lang.String"></result>
+		<result column="password" property="password" javaType="java.lang.String"></result>
+		<result column="gender" property="gender" javaType="java.lang.Boolean"></result>
+		<result column="age" property="age" javaType="java.lang.Integer"></result>
+		<result column="email" property="email" javaType="java.lang.String"></result>
+	</resultMap>
+
+	<select id="selectByUsername" resultMap="user">
+		SELECT <include refid="total_column"></include>
+		FROM user
+		WHERE login_name=#{name}
+	</select>
+
+	<insert id="insert" parameterType="com.clei.entity.security.User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user(<include refid="base_column"></include>)
+		VALUES(#{loginName},#{nickname},#{password},#{gender},#{age},#{email})
+	</insert>
+  
+</mapper>

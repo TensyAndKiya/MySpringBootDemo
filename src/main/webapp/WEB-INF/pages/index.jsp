@@ -19,6 +19,7 @@
 <a href="dog">dog</a>
 <a href="chat">chat</a>
 <a href="tempOrder">order</a>
+<a href="/boot/logout">退出登陆</a>
 <button onclick="jsonTest()">json test</button>
 
 <script type="text/javascript">

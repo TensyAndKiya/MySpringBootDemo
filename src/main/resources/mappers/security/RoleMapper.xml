@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clei.mapper.security.RoleMapper">
+
+	<sql id="total_column">r.id,r.name</sql>
+
+	<resultMap id="role" type="com.clei.entity.security.Role">
+		<id column="id" property="id"></id>
+		<result column="name" property="name"></result>
+	</resultMap>
+
+	<select id="selectByUserId" resultMap="role" parameterType="java.lang.Integer">
+		SELECT <include refid="total_column"></include>
+		FROM user u JOIN user_role ur
+		ON u.id=ur.user_id
+		JOIN role r
+		ON ur.role_id=r.id
+	</select>
+
+</mapper>
