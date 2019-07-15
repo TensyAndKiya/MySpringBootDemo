@@ -14,9 +14,6 @@ public class LoginController {
 
     @GetMapping("/login/view")
     public String view(){
-
-        logger.info("login");
-
         return "login";
     }
 
@@ -33,10 +30,10 @@ public class LoginController {
         return "登陆成功！！！";
     }*/
 
-    @RequestMapping("/logout")
+    /*@RequestMapping("/logout")
     @ResponseBody
     public String logout(){
         return "登出";
-    }
+    }*/
 
 }
