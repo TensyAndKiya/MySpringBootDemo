@@ -21,35 +21,57 @@
 	$(function(){
 	    // getByPage
         $("#getByPage").click(function(){
-            $.get("tempOrder/getByPage",{
-                startDate: $("#startDate").val(),
-                endDate: $("#endDate").val(),
-                page: $("#page").val(),
-                size: $("#size").val(),
-                parkLotId: "f635cb442b964a0da188fef47f852462",
-                carLicense: "川A588T0",
-                orderType: 0
-            }, function(data){
-                var orders = data;
-                if(orders.length > 0){
-                    var th = "<thead><tr>";
-                    var tableHead = orders[0];
-                    $.each(tableHead,function(k,v){
-                        th += "<td>"+k+"</td>";
-                    });
-                    th += "</tr></thead>";
-                    $.each(orders, function(i,dog){
-                        th += "<tr>";
-                       $.each(dog,function(k,v){
-                           th += "<td>"+v+"</td>";
-                       });
-                        th += "</tr>";
-                    });
-                    $("#orderTable").html(th);
-                }
-            });
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            if(checkTime(startDate,endDate)){
+                $.get("tempOrder/getByPage",{
+                    startDate: startDate,
+                    endDate: endDate,
+                    page: $("#page").val(),
+                    size: $("#size").val(),
+                    parkLotId: "f635cb442b964a0da188fef47f852462",
+                    carLicense: "川A588T0",
+                    orderType: 0
+                }, function(data){
+                    var orders = data;
+                    if(orders.length > 0){
+                        var th = "<thead><tr>";
+                        var tableHead = orders[0];
+                        $.each(tableHead,function(k,v){
+                            th += "<td>"+k+"</td>";
+                        });
+                        th += "</tr></thead>";
+                        $.each(orders, function(i,dog){
+                            th += "<tr>";
+                            $.each(dog,function(k,v){
+                                th += "<td>"+v+"</td>";
+                            });
+                            th += "</tr>";
+                        });
+                        $("#orderTable").html(th);
+                    }
+                });
+            }
         });
 	});
+
+    function checkTime(startTime,endTime){
+        try{
+            var startDate=new Date(startTime);
+            var endDate=new Date(endTime);
+            var yearToMonth = (endDate.getFullYear() - startDate.getFullYear()) * 12;
+            var month_count = endDate.getMonth() - startDate.getMonth() + yearToMonth;
+            if(month_count > 2 || month_count < 0){
+                return false;
+            }else{
+                return true;
+            }
+        }catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+
 </script>
 
 </body>

@@ -3,42 +3,23 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>INDEX</title>
-    <script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<h2>Hello World!</h2>
-<a href="dog">dog</a>
-<a href="chat">chat</a>
-<a href="tempOrder">order</a>
-<button onclick="jsonTest()">json test</button>
-
+<div id="mills"></div>
 <script type="text/javascript">
-
-    var txt = 'boot自动在静态资源文件夹里找index.html或者类似的模版文件。。找到会将其当为welcome page';
-    console.log(txt);
-
-        function jsonTest(){
-            var data = {
-                name: "张三",
-                age: 18,
-                weight: 235.05,
-                dog:{
-                    name: "小黄",
-                    color: "blue"
-                }
-            };
-            $.ajax({
-                type: "GET",
-                url: "jsonTest",
-                data: {
-                    json: JSON.stringify(data)
-                },
-                contentType:"application/json;charset=UTF-8",
-                success: function(msg){
-                    alert(JSON.stringify(msg));
-                }
-            });
+    var dom = document.getElementById("mills");
+    var sum = 1000;
+    var interval = setInterval(function () {
+        sum -= 5;
+        dom.innerText = sum;
+        if(sum <= 0){
+            clearInterval(interval);
+            location.href="/index";
         }
+    },5);
+    /*setTimeout(function () {
+       location.href="/index";
+    },1000);*/
 </script>
 
 </body>

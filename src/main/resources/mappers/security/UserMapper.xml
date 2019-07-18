@@ -7,7 +7,7 @@
 
 	<resultMap id="user" type="com.clei.entity.security.User">
 		<id column="id" property="id"></id>
-		<result column="loginName" property="login_name" javaType="java.lang.String"></result>
+		<result column="login_name" property="loginName" javaType="java.lang.String"></result>
 		<result column="nickname" property="nickname" javaType="java.lang.String"></result>
 		<result column="password" property="password" javaType="java.lang.String"></result>
 		<result column="gender" property="gender" javaType="java.lang.Boolean"></result>

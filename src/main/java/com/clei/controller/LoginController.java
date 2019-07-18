@@ -14,9 +14,6 @@ public class LoginController {
 
     @GetMapping("/login/view")
     public String view(){
-
-        logger.info("login");
-
         return "login";
     }
 

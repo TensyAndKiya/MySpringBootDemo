@@ -37,6 +37,8 @@ public class MyUserDetailsService implements UserDetailsService {
             List<Role> roles = roleDao.selectByUserId(user.getId());
             if(null != roles && !roles.isEmpty()){
                 List<SimpleGrantedAuthority> authorities = roles.stream().map(Role::getName)
+                        // 加个 ROLE_前缀
+                        .map( r -> "ROLE_" + r)
                         .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
                 MyUserDetails userDetails = new MyUserDetails(user.getLoginName(),user.getPassword(),authorities);
 
