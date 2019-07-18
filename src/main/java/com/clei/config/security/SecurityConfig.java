@@ -32,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 忽略druid下面的 完美解决了问题。。不用搞什么过滤器之类的。。
-        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**")
-            .ignoringAntMatchers("/login/do");
+        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/login/do","/logout");
         // 最多允许100个用户同时登陆
         http.sessionManagement().maximumSessions(100).expiredUrl("/login/view");
         // 认证
@@ -53,8 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login/view")
                 .logoutSuccessHandler((request,response,authentication) -> {
                     // 登出成功处理函数
+                    // 有了这个logoutSuccessUrl就不管用了
                     logger.info("登出成功！！！");
-                    response.sendRedirect("/login/view");
+                    response.sendRedirect("login/view");
                 }).addLogoutHandler((request,response,authentication) -> {
                     // 登出处理函数
                     logger.info("登出！！！");

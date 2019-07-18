@@ -33,10 +33,10 @@ public class LoginController {
         return "登陆成功！！！";
     }*/
 
-    @RequestMapping("/logout")
+    /*@RequestMapping("/logout")
     @ResponseBody
     public String logout(){
         return "登出";
-    }
+    }*/
 
 }

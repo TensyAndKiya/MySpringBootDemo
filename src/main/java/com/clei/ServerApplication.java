@@ -1,8 +1,15 @@
 package com.clei;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 //@Configuration
@@ -12,12 +19,21 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @ServletComponentScan
 public class ServerApplication {
     public static void main(String[] args) {
+
+
         // SpringApplication.run(ServerApplication.class, args);
         SpringApplication application = new SpringApplication(ServerApplication.class);
         // application.setBannerMode(Banner.Mode.OFF); 不用banner
         application.run(args);
     }
-    /*@Bean
+
+    public static void test(){
+        PasswordEncoder pe = new BCryptPasswordEncoder();
+        for (int i = 0; i < 10; i++) {
+            System.out.println(pe.encode("" + i));
+        }
+    }
+    @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx){
         return args -> {
             System.out.println("Let's inspect the beans provided by Spring Boot :");
@@ -27,5 +43,5 @@ public class ServerApplication {
                 System.out.println(name);
             }
         };
-    }*/
+    }
 }
