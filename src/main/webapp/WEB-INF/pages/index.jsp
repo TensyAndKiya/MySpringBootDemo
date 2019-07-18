@@ -19,8 +19,9 @@
 <a href="dog">dog</a>
 <a href="chat">chat</a>
 <a href="tempOrder">order</a>
-<a href="javascript:logout();">退出登陆</a>
-<form id="logout" action="logout" method="post" style="display: none;">
+<a href="showRoles">showRoles</a>
+<a href="/logout">退出登陆</a>
+<form id="logout" action="/logout" method="post" style="display: none;">
 </form>
 <button onclick="jsonTest()">json test</button>
 

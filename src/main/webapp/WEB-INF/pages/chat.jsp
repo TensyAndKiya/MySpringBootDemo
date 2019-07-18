@@ -20,7 +20,7 @@
     var websocket = null;
     if('WebSocket' in window){
         //之前没注意，原来这个要写完整的服务器的url地址啊。。
-        var url = "ws://localhost:8888/boot/socket/chat";
+        var url = "ws://localhost:8888/socket/chat";
         websocket = new WebSocket(url);
     }else{
         alert("您的浏览器不支持WebSocket！请换个浏览器再访问本站！");

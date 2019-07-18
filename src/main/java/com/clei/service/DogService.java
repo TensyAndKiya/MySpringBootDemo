@@ -3,6 +3,8 @@ package com.clei.service;
 import com.clei.entity.Dog;
 import com.clei.mapper.DogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -21,6 +23,9 @@ public class DogService {
 		return dogMapper.getById(id);
 	}
 
+	// 只有yueyaye这个角色才能访问的方法
+	// 竟然必须要有ROLE_这个前缀。。。厉害了
+	@Secured({"ROLE_超级管理员"})
 	public Collection<Dog> getAll(){
 		return  dogMapper.getAll();
 	}

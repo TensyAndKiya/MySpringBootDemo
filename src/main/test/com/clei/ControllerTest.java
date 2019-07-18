@@ -29,7 +29,7 @@ public class ControllerTest {
 
     @Before
     public void setUp() throws MalformedURLException {
-        this.base = new URL("http://localhost:" + port + "/boot/test");
+        this.base = new URL("http://localhost:" + port + "/test");
     }
 
     @Test
