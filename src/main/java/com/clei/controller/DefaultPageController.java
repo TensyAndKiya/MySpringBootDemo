@@ -45,6 +45,7 @@ public class DefaultPageController {
     @ResponseBody
     public String showRoles(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("isAuthenticated :{}",authentication.isAuthenticated());
         logger.info("name :{}",authentication.getName());
         logger.info("authorities :{}",authentication.getAuthorities());
         logger.info("details :{}",authentication.getDetails());
