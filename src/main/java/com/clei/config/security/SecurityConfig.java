@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 忽略druid下面的 完美解决了问题。。不用搞什么过滤器之类的。。
-        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**");
+        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/file/**");
         // 最多允许100个用户同时登陆
         http.sessionManagement().maximumSessions(maxSession).expiredUrl("/login");
         // 认证
