@@ -8,21 +8,29 @@
 <body>
 
 <form id="form1" enctype="multipart/form-data">
-    <input name="file" type="file" />
-    <input type="button" id="doUpload" value="上传" />
+    <input name="file1" type="file" />
+    <input name="file2" type="file" />
 </form>
+<input type="button" id="doUpload" value="上传" />
+
 <script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#doUpload").click(function(){
 
-            console.log(new FormData($('form1')[0]));
+            var formData = new FormData($('#form1')[0]);
+            var token = {
+                token:"hasaki"
+            };
+            formData.append("token",JSON.stringify(token));
+
+            console.log(formData);
 
             $.ajax({
                 url : "file/upload",
                 type : "post",
                 cache : false,
-                data : new FormData($('#form1')[0]),
+                data : formData,
                 contentType : false,
                 processData : false,
                 dataType : "text",
