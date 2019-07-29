@@ -45,6 +45,7 @@ public class MyFilter implements Filter, Ordered {
             filterChain.doFilter(servletRequest,servletResponse);
 
         }else{
+            logger.info("" + System.currentTimeMillis());
             logger.info("{} {}",request.getMethod(),request.getRequestURI());
             long startTime = System.currentTimeMillis();
             filterChain.doFilter(servletRequest,servletResponse);

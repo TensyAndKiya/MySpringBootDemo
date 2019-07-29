@@ -27,6 +27,26 @@
 
 <script type="text/javascript">
 
+    var d1 = '2019-01-01 xxxxxx';
+    var d2 = '2019-01-01';
+
+    var date1 = new Date(d1);
+    var date2 = new Date(d2);
+
+    console.log("mills : " + date1.getTime());
+    console.log("mills : " + date2.getTime());
+
+    console.log("year : " + date1.getFullYear());
+    console.log("year : " + date2.getFullYear());
+    console.log("year : " + date1.getMonth());
+    console.log("year : " + date2.getMonth());
+    console.log("year : " + date1.getDate());
+    console.log("year : " + date2.getDate());
+
+    console.log(date1);
+    console.log(date2);
+
+
     function logout() {
         $("#logout").submit();
     }
