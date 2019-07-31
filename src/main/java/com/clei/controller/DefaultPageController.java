@@ -31,11 +31,6 @@ public class DefaultPageController {
         return "dog";
     }
 
-    @RequestMapping("/file")
-    public String file(){
-        return "file";
-    }
-
     @RequestMapping("/chat")
     public String chat(){
         return "chat";

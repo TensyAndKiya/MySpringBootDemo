@@ -27,10 +27,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 
-    // @Bean(value = "multipartResolver")
+    @Bean(value = "multipartResolver")
     public CommonsMultipartResolver multipartResolver(){
         CommonsMultipartResolver mr = new CommonsMultipartResolver();
-        mr.setMaxUploadSize(8000);
+        mr.setMaxUploadSize(8*1024*1024);
         mr.setDefaultEncoding("UTF-8");
         return mr;
     }

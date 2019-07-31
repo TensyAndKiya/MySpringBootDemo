@@ -1,5 +1,6 @@
 package com.clei.config.security;
 
+import com.clei.service.security.MyUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private int maxSession;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private MyUserDetailsService userDetailsService;
 
     private final static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 忽略druid下面的 完美解决了问题。。不用搞什么过滤器之类的。。
-        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/file/**");
+        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/file/upload");
         // 最多允许100个用户同时登陆
         http.sessionManagement().maximumSessions(maxSession).expiredUrl("/login");
         // 认证

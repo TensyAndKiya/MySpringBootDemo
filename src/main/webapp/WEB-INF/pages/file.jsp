@@ -13,7 +13,7 @@
 </form>
 <input type="button" id="doUpload" value="上传" />
 
-<script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
     $(function () {
         $("#doUpload").click(function(){
@@ -27,7 +27,7 @@
             console.log(formData);
 
             $.ajax({
-                url : "file/upload",
+                url : "/file/upload",
                 type : "post",
                 cache : false,
                 data : formData,
