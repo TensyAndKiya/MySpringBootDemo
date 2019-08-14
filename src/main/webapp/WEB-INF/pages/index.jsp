@@ -23,9 +23,26 @@
 <a href="/logout">退出登陆</a>
 <form id="logout" action="/logout" method="post" style="display: none;">
 </form>
+<input type="text" onblur="haha(1);">
+<input type="text" onblur="haha(2);">
+<input type="text" onblur="haha(3);">
 <button onclick="jsonTest()">json test</button>
 
 <script type="text/javascript">
+
+    var timestamp = 0;
+
+    function haha(num){
+        var temp = getTimestamp();
+        if(temp - timestamp > 100){
+            alert(num);
+            timestamp = getTimestamp();
+        }
+    }
+
+    function getTimestamp(){
+        return new Date().getTime();
+    }
 
     var d1 = '2019-01-01 xxxxxx';
     var d2 = '2019-01-01';
