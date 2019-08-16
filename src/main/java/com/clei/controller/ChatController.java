@@ -4,10 +4,12 @@ import com.clei.websocket.ChatSocket;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 @Controller
 @RequestMapping("/chat")
+@ApiIgnore
 public class ChatController {
 
     //这个方法主要是测试让服务端主动发送消息给浏览器

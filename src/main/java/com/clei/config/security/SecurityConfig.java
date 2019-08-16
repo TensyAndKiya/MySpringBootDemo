@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -37,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 忽略druid下面的 完美解决了问题。。不用搞什么过滤器之类的。。
-        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/file/upload");
+        http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**","/dog/**","/file/upload");
         // 最多允许100个用户同时登陆
         http.sessionManagement().maximumSessions(maxSession).expiredUrl("/login");
         // 认证

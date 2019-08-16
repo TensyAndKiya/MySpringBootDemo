@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
 
@@ -17,6 +18,8 @@ import java.util.Arrays;
 //@ComponentScan
 // 扫描filter等
 @ServletComponentScan
+// 启用swagger2
+@EnableSwagger2
 public class ServerApplication {
     public static void main(String[] args) {
 

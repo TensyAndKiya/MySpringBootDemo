@@ -1,6 +1,9 @@
 package com.clei.controller;
 
 import com.clei.entity.Dog;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ public class DogController {
 	
 	@RequestMapping(value="getOne",method=RequestMethod.GET)
 	@ResponseBody
+	@ApiOperation(value = "根据id获取狗子的详细信息", notes = "没什么需要注意的")
+	@ApiImplicitParam(name = "id",value = "狗子的id",dataType = "Integer")
 	public Dog getById(@RequestParam(value = "id") Integer id){
 		if(null == id){
 			logger.error("你竟然传个空值？？？");
@@ -36,18 +41,20 @@ public class DogController {
 
 	@RequestMapping(value="getAll",method=RequestMethod.GET)
 	@ResponseBody
-	public Collection<Dog> getALl(){
+	@ApiOperation(value = "获取所有狗子", notes = "没分页")
+	public Collection<Dog> getAll(){
 		return dogService.getAll();
 	}
 
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	@ResponseBody
-	public Integer add(Dog dog){
+	@ApiOperation(value = "传入Dog对象创建狗子", notes = "没什么需要注意的")
+	public Integer add(@ApiParam(name = "dog",value = "狗子实体类") Dog dog){
 		return dogService.add(dog);
 	}
 
 	/**
-	 * 改方法用于测试特殊的 参数 Map<String,Object> map Object里有String 有List
+	 * 该方法用于测试特殊的 参数 Map<String,Object> map Object里有String 有List
 	 * 来进行select
 	 * @return
 	 */

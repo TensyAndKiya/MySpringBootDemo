@@ -24,6 +24,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <java.version>1.8</java.version>
+    <swagger2.version>2.9.2</swagger2.version>
   </properties>
 
   <dependencies>
@@ -113,6 +114,17 @@
       <version>1.4</version>
     </dependency>
 
+    <!-- swagger2 -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger2.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger2.version}</version>
+    </dependency>
 
   </dependencies>
 

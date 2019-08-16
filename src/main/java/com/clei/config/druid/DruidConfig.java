@@ -1,4 +1,4 @@
-package com.clei.config;
+package com.clei.config.druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
