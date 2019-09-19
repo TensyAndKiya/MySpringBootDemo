@@ -19,11 +19,48 @@
 
 </table>
 
+<select name="colorType" id="colorType">
+    <option value="0" id="blue" selected>蓝</option>
+    <option value="1">黄</option>
+    <option value="2">白</option>
+    <option value="3">黑</option>
+    <option value="4">绿</option>
+    <option value="5">其他</option>
+</select>
+
+<span id="hasaki">12345.00</span>
+
 <script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
+
+    // var errMsg = "${errMsg}";
+    // alert(errMsg == "");
+
+
+    function copyText(){
+        var range = document.createRange();
+        range.selectNodeContents(document.getElementById("hasaki"));
+        var selection = document.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        var result = document.execCommand('copy');
+        console.log(result);
+        selection.removeAllRanges();
+    }
+
+    // copyText();
+
+
     $(function () {
+        $("#dId").focus(function () {
+            this.select();
+        });
         // get by id
         $("#gBI").click(function () {
+
+            // 点击复制只能在用户出发的操作里进行。。(因为会访问剪贴板，所以有限制)
+            copyText();
+
             var dId = $("#dId").val();
             if(isNaN(dId) || dId < 1){
                 alert("请输入正整数！！！");

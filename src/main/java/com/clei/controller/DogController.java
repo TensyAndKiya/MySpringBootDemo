@@ -25,6 +25,9 @@ public class DogController {
 	@Value("${application.hello:default value}")
 	private String hello;
 
+	@Value("${maven.profiles.active}")
+	private String activeProfile;
+
 	private static Logger logger = LoggerFactory.getLogger(DogController.class);
 	
 	@RequestMapping(value="getOne",method=RequestMethod.GET)
@@ -32,10 +35,16 @@ public class DogController {
 	@ApiOperation(value = "根据id获取狗子的详细信息", notes = "没什么需要注意的")
 	@ApiImplicitParam(name = "id",value = "狗子的id",dataType = "Integer")
 	public Dog getById(@RequestParam(value = "id") Integer id){
+
+		logger.info("Active Profile : {}",activeProfile);
+
 		if(null == id){
 			logger.error("你竟然传个空值？？？");
 			return null;
 		}
+		privateMethod(false);
+		privateMethod(0);
+		privateMethod("1");
 		return dogService.getById(id);
 	}
 
@@ -92,6 +101,35 @@ public class DogController {
 		System.out.println("SIZE:" + result.size());
 
 		return result;
+	}
+
+	// 下面的这几个方法只能被controller 里的request方法调用。。
+	// 所以不会再被拦截
+	// aop 测试
+	private void privateMethod(String s){
+		if(null == s){
+
+		}else {
+
+		}
+	}
+
+	// aop 测试
+	private void privateMethod(Integer s){
+		if(null == s){
+
+		}else {
+
+		}
+	}
+
+	// aop 测试
+	void privateMethod(Boolean s){
+		if(null == s){
+
+		}else {
+
+		}
 	}
 
 }

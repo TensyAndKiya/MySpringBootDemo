@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,6 +49,15 @@ public class TestController {
         userService.insert(user);
 
         return user;
+    }
+
+    @PostMapping("commonPost")
+    public String acceptJson(String json){
+        logger.info("json : {}",json);
+        JSONObject obj = new JSONObject();
+        obj.put("message","");
+        obj.put("status","success");
+        return obj.toJSONString();
     }
 
     @GetMapping("test")
