@@ -12,10 +12,10 @@
 
     <!-- springProfile -->
     <springProfile name="company">
-        <property name="log.path" value="E:/Logs/boot"></property>
+        <property name="log.path" value="D:/Logs/boot"></property>
     </springProfile>
     <springProfile name="home">
-        <property name="log.path" value="E:/Log/boot"></property>
+        <property name="log.path" value="D:/Log/boot"></property>
     </springProfile>
 
     <!--<springProperty scope="context" name="fluentHost" source="myapp.fluent.host" defaultValue="localhost"/>
