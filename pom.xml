@@ -131,20 +131,20 @@
   <build>
     <finalName>MyBoot</finalName>
 
-    <!--<plugins>
-      &lt;!&ndash;用于maven打包时候会自动生成主清单&ndash;&gt;
+    <plugins>
+      <!--用于maven打包时候会自动生成主清单-->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        &lt;!&ndash;换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用&ndash;&gt;
+        <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
         <version>2.1.6.RELEASE</version>
-        &lt;!&ndash;<executions>
+        <!--<executions>
           <execution>
             <goals>
               <goal>repackage</goal>
             </goals>
           </execution>
-        </executions>&ndash;&gt;
+        </executions>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -154,7 +154,7 @@
           <useDefaultDelimiters>true</useDefaultDelimiters>
         </configuration>
       </plugin>
-    </plugins>-->
+    </plugins>
 
 
     <resources>

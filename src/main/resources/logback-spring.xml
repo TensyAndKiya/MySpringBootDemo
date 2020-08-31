@@ -17,6 +17,9 @@
     <springProfile name="home">
         <property name="log.path" value="D:/Log/boot"></property>
     </springProfile>
+    <springProfile name="default">
+        <property name="log.path" value="D:/Log/boot"></property>
+    </springProfile>
 
     <!--<springProperty scope="context" name="fluentHost" source="myapp.fluent.host" defaultValue="localhost"/>
    这样可以用${fluentHost} 来 引用 spring配置文件里的myapp.fluentd.host属性-->

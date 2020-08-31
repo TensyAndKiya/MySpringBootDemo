@@ -1,7 +1,5 @@
 package com.clei.config.cloud;
 
-import io.micrometer.core.instrument.util.StringUtils;
-
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -86,7 +84,7 @@ public class IsMeUtil {
                         if(address instanceof Inet4Address && !address.isLoopbackAddress()){
                             //
                             String host = address.getHostAddress();
-                            if(StringUtils.isNotEmpty(host)){
+                            if(null != host && 0 != host.length()){
                                 result.add(host);
                             }
                         }
