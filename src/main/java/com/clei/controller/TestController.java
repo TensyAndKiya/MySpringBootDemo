@@ -3,21 +3,25 @@ package com.clei.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.clei.config.runner.ListStrConfig;
 import com.clei.constant.Global;
+import com.clei.entity.Dog;
 import com.clei.entity.security.User;
+import com.clei.service.DogService;
 import com.clei.service.security.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/test")
 public class TestController {
 
     @Autowired
@@ -27,6 +31,9 @@ public class TestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    DogService dogService;
+
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
     // 普通spring web项目里得Controller使用@Value会有问题，
@@ -35,8 +42,7 @@ public class TestController {
     @Value("${application.hello}")
     private String str;
 
-    @GetMapping("insertUser")
-    @ResponseBody
+    @GetMapping("/insertUser")
     public User insertUser(){
         User user = new User();
         user.setLoginName("yueyaye");
@@ -51,7 +57,7 @@ public class TestController {
         return user;
     }
 
-    @PostMapping("commonPost")
+    @PostMapping("/commonPost")
     public String acceptJson(String json){
         logger.info("json : {}",json);
         JSONObject obj = new JSONObject();
@@ -60,8 +66,7 @@ public class TestController {
         return obj.toJSONString();
     }
 
-    @GetMapping("test")
-    @ResponseBody
+    @GetMapping("/test")
     public String test(){
         /*logger.info("This str:{},Global.str:{}",str,global.str);
         logger.info("new Global:{}",new Global().str);*/
@@ -71,7 +76,6 @@ public class TestController {
     }
 
     @RequestMapping("/jsonTest")
-    @ResponseBody
     public Map<String,Object> jsonTest(String json){
 
         logger.info(json);
@@ -84,5 +88,15 @@ public class TestController {
             logger.info("{}",jsonObject.get("dog"));
         }
         return jsonObject;
+    }
+
+    @RequestMapping("getDog")
+    public Dog getDog(@RequestParam("id") Integer id){
+        return dogService.getDog(id);
+    }
+
+    @RequestMapping("getDogList")
+    public List<Dog> getDogList(){
+        return dogService.getDogList();
     }
 }

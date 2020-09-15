@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  *
  * @author KIyA
  */
-@Configuration
+// @Configuration
 public class ScheduleConfig implements SchedulingConfigurer {
 
     @Override

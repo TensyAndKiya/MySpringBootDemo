@@ -83,7 +83,7 @@
         };
         $.ajax({
             type: "GET",
-            url: "jsonTest",
+            url: "/test/jsonTest",
             data: {
                 json: JSON.stringify(data)
             },

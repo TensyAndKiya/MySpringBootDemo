@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author KIyA
  */
-@Component
+// @Component
 public class TestTimer {
 
     private Logger logger = LoggerFactory.getLogger(MyFilter.class);
