@@ -149,6 +149,10 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
         <!--<version>2.1.6.RELEASE</version>-->
+        <configuration>
+          <mainClass>com.clei.ServerApplication</mainClass>
+          <skip>false</skip>
+        </configuration>
         <!--<executions>
           <execution>
             <goals>
