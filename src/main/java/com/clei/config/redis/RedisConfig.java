@@ -37,10 +37,10 @@ public class RedisConfig {
     @Value("${redis.expireTime:5}")
     private Long expireTime;
 
-    private Logger logger= LoggerFactory.getLogger(RedisConfig.class);
+    private Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
     @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory){
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 
         logger.info("cacheManager");
 
@@ -58,7 +58,7 @@ public class RedisConfig {
         // 这里竟然返回了一个RedisCacheConfiguration对象，直接调用entryTtl不行，简直坑爹啊
         redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofSeconds(expireTime));
 
-        CacheManager cacheManager =  RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+        CacheManager cacheManager = RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheConfiguration)
                 .build();
 
@@ -67,8 +67,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public KeyGenerator keyGenerator(){
-        return (obj,method,args) -> {
+    public KeyGenerator keyGenerator() {
+        return (obj, method, args) -> {
             StringBuilder sb = new StringBuilder();
 
             sb.append("C_");
@@ -93,18 +93,22 @@ public class RedisConfig {
 
     /**
      * SpringBoot 2.X 的 redis缓存并没有使用redistemplate
-     * @param <T>
+     *
+     * @param redisConnectionFactory
+     * @return
      */
     @Bean
-    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());
 
         redisTemplate.setValueSerializer(new FastJsonRedisSerializer<>(Object.class));
+
+        redisTemplate.afterPropertiesSet();
 
         return redisTemplate;
     }

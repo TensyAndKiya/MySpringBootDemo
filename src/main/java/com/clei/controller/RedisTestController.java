@@ -139,7 +139,7 @@ public class RedisTestController {
         String result = "处理中...";
         long value = System.currentTimeMillis();
         // 加锁
-        Boolean lockResult = redisUtil.setIfAbsent(key, value, 2, TimeUnit.SECONDS);
+        Boolean lockResult = redisUtil.lock(key, value, 2, TimeUnit.SECONDS);
         if(lockResult){
             // 业务处理...
             try {
@@ -150,10 +150,42 @@ public class RedisTestController {
                 result = "处理出错...";
             }finally {
                 // 解锁
-                redisUtil.delete(key);
+                redisUtil.unlock(key,value);
             }
         }
         logger.info("result : {}", result);
         return result;
+    }
+
+    /**
+     * setNx 测试2
+     *
+     * @return
+     */
+    @RequestMapping("/setNx2")
+    public void setNx2() {
+        String key = "lockKey";
+        long value = System.currentTimeMillis();
+        logger.info("key : {}, value : {}", key, value);
+        // 加锁
+        Boolean lockResult = redisUtil.lock(key, value, 100, TimeUnit.SECONDS);
+        logger.info("lockResult : {}", lockResult);
+        // 解锁
+        Boolean unlockResult = redisUtil.unlock(key,1);
+        logger.info("unlockResult 1 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,2);
+        logger.info("unlockResult 2 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,3);
+        logger.info("unlockResult 3 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,4);
+        logger.info("unlockResult 4 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,5);
+        logger.info("unlockResult 5 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,6);
+        logger.info("unlockResult 6 : {}", unlockResult);
+        unlockResult = redisUtil.unlock(key,value);
+        logger.info("unlockResult {} : {}", value, unlockResult);
+        unlockResult = redisUtil.unlock(key,value);
+        logger.info("unlockResult {} : {}", value, unlockResult);
     }
 }

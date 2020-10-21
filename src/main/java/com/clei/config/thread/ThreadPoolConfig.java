@@ -1,4 +1,4 @@
-package com.clei.config;
+package com.clei.config.thread;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
