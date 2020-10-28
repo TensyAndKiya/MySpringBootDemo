@@ -80,6 +80,7 @@ public class RedisUtil {
 
     /**
      * 设置 key value 并设置一个过期时间 前提：如果key不存在的话
+     * 为了保证解锁的时候锁还没过期，尽量使得设置的过期时长大于业务执行时间
      *
      * @param key
      * @param value

@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 忽略druid下面的 完美解决了问题。。不用搞什么过滤器之类的。。
+        // 对以下的非GET接口忽略csrf防御
         http.authorizeRequests().and().csrf().ignoringAntMatchers("/druid/**", "/dog/**", "/test/**", "/file/upload");
         // 最多允许100个用户同时登陆
         http.sessionManagement().maximumSessions(maxSession).expiredUrl("/login");
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 认证
         http.authorizeRequests()
                 // 对静态资源和测试接口
-                .antMatchers("/static/**", "/test/**", "/redis/**").permitAll()
+                .antMatchers("/static/**", "/test/**", "/redis/**", "/es/**").permitAll()
                 // 其他请求都要经过认证
                 .anyRequest().authenticated();
         // 表单登陆 跳转界面

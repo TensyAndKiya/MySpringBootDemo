@@ -25,8 +25,6 @@ import java.util.Arrays;
 @EnableScheduling
 public class ServerApplication {
     public static void main(String[] args) {
-
-
         // SpringApplication.run(ServerApplication.class, args);
         SpringApplication application = new SpringApplication(ServerApplication.class);
         // application.setBannerMode(Banner.Mode.OFF); 不用banner
