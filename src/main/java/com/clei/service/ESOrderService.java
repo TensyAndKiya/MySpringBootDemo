@@ -1,7 +1,10 @@
 package com.clei.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.clei.entity.elasticsearch.Order;
 import com.clei.repository.OrderRepository;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -16,6 +19,8 @@ import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilterBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.UpdateQuery;
+import org.springframework.data.elasticsearch.core.query.UpdateQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,6 +68,22 @@ public class ESOrderService implements ESService {
      */
     public void saveAll(List<Order> list) {
         orderRepository.saveAll(list);
+    }
+
+    /**
+     * 只更新document的部分字段
+     *
+     * @param obj 数据源
+     * @param id  document id
+     */
+    private void updatePart(Object obj, String id) {
+        String json = JSONObject.toJSONString(obj);
+        UpdateRequest updateRequest = new UpdateRequest().doc(json, XContentType.JSON);
+        UpdateQueryBuilder builder = new UpdateQueryBuilder();
+        builder.withClass(obj.getClass());
+        builder.withId(id);
+        UpdateQuery query = builder.withUpdateRequest(updateRequest).build();
+        template.update(query);
     }
 
     /**

@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.List;
 import java.util.Map;
 
@@ -91,12 +97,48 @@ public class TestController {
     }
 
     @RequestMapping("getDog")
-    public Dog getDog(@RequestParam("id") Integer id){
+    public Dog getDog(@RequestParam("id") Integer id) {
         return dogService.getDog(id);
     }
 
     @RequestMapping("getDogList")
-    public List<Dog> getDogList(){
+    public List<Dog> getDogList() {
         return dogService.getDogList();
+    }
+
+    /**
+     * 指定文件url下载
+     *
+     * @param fileUrl
+     * @param response
+     * @throws Exception
+     */
+    @GetMapping("/download")
+    public void download(@RequestParam("fileUrl") String fileUrl, HttpServletResponse response) throws Exception {
+        if (null == fileUrl || 0 == fileUrl.length()) {
+            throw new RuntimeException("文件url不能为空");
+        }
+        // 指定是下载文件
+        response.setContentType("application/x-msdownload");
+        // 指定文件名
+        response.setHeader("Content-Disposition", "attachment;filename=response.pdf");
+
+        URL url = new URL(fileUrl);
+        ReadableByteChannel readableByteChannel = Channels.newChannel(url.openStream());
+        WritableByteChannel writableByteChannel = Channels.newChannel(response.getOutputStream());
+
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        while (readableByteChannel.read(buffer) != -1) {
+            //切换为读状态
+            buffer.flip();
+            //保证全部写入
+            while (buffer.hasRemaining()) {
+                writableByteChannel.write(buffer);
+            }
+            //清空缓冲区
+            buffer.clear();
+        }
+
+
     }
 }
