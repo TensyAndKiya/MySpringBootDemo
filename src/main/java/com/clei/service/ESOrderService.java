@@ -79,11 +79,15 @@ public class ESOrderService implements ESService {
     private void updatePart(Object obj, String id) {
         String json = JSONObject.toJSONString(obj);
         UpdateRequest updateRequest = new UpdateRequest().doc(json, XContentType.JSON);
-        UpdateQueryBuilder builder = new UpdateQueryBuilder();
-        builder.withClass(obj.getClass());
-        builder.withId(id);
-        UpdateQuery query = builder.withUpdateRequest(updateRequest).build();
+        UpdateQuery query = new UpdateQueryBuilder()
+                .withClass(obj.getClass())
+                .withId(id)
+                .withUpdateRequest(updateRequest)
+                .build();
         template.update(query);
+        // 当索引一个文档，文档先是被存储在内存里面，默认1秒后，会进入文件系统缓存，这样该文档就可以被搜索
+        // 使用下面的操作可以使得更新索引数据的时候，要保证被索引的文档能够立即被搜索到
+        template.refresh(obj.getClass());
     }
 
     /**
