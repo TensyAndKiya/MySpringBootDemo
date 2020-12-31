@@ -7,12 +7,15 @@ import com.clei.entity.Dog;
 import com.clei.entity.security.User;
 import com.clei.service.DogService;
 import com.clei.service.security.UserService;
+import com.clei.util.RocketMQProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +46,9 @@ public class TestController {
 
     @Autowired
     DogService dogService;
+
+    @Autowired
+    private RocketMQProducer rocketMQProducer;
 
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -172,5 +178,11 @@ public class TestController {
             map.put(cookie.getName(), cookie.getValue());
         }
         return Arrays.toString(cookies);
+    }
+
+    @PostMapping("addTransactionDog")
+    public String addTransactionDog(@RequestBody String json) {
+        rocketMQProducer.sendTransactionMsg(MessageBuilder.withPayload(json).build(), null);
+        return json;
     }
 }

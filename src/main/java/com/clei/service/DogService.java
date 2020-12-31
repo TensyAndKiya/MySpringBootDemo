@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +22,7 @@ import java.util.Random;
 public class DogService {
 
     @Autowired
-    DogMapper dogMapper;
+    private DogMapper dogMapper;
 
     private Logger logger= LoggerFactory.getLogger(DogService.class);
 
@@ -40,6 +41,11 @@ public class DogService {
     }
 
     public Integer add(Dog dog) {
+        return dogMapper.add(dog);
+    }
+
+    @Transactional
+    public Integer addDogInTransaction(Dog dog) {
         return dogMapper.add(dog);
     }
 
