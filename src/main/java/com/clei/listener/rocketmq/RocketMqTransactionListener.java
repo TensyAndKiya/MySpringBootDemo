@@ -4,14 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.clei.entity.Dog;
 import com.clei.service.DogService;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
-import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;
 import org.apache.rocketmq.spring.core.RocketMQLocalTransactionListener;
 import org.apache.rocketmq.spring.core.RocketMQLocalTransactionState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author KIyA
  * @date 2020-12-30
  */
-@Component
-@RocketMQTransactionListener
+// @Component
+// @RocketMQTransactionListener
 public class RocketMqTransactionListener implements RocketMQLocalTransactionListener {
 
     @Autowired

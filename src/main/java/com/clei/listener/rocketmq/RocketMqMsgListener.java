@@ -3,12 +3,10 @@ package com.clei.listener.rocketmq;
 import com.alibaba.fastjson.JSONObject;
 import com.clei.entity.Dog;
 import com.clei.service.DogService;
-import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * rocketmq消息消费监听
@@ -17,8 +15,8 @@ import org.springframework.stereotype.Component;
  * @author KIyA
  * @date 2020-12-30
  */
-@Component
-@RocketMQMessageListener(topic = "${mq.topic:SecondTopic}", consumerGroup = "${mq.consumer.group:ConsumerGroup}")
+// @Component
+// @RocketMQMessageListener(topic = "${mq.topic:SecondTopic}", consumerGroup = "${mq.consumer.group:ConsumerGroup}")
 public class RocketMqMsgListener implements RocketMQListener<String> {
 
     @Autowired

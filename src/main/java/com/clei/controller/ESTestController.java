@@ -27,7 +27,7 @@ public class ESTestController {
     @Autowired
     private ESOrderService esOrderService;
 
-    private static Logger logger = LoggerFactory.getLogger(TestController.class);
+    private static Logger logger = LoggerFactory.getLogger(ESTestController.class);
 
     /**
      * 初始化
@@ -110,6 +110,16 @@ public class ESTestController {
     @RequestMapping("/max")
     public double max() {
         return esOrderService.max();
+    }
+
+    /**
+     * 各个价格区间的商品数量
+     *
+     * @return
+     */
+    @RequestMapping("/unitPriceRange")
+    public List<Map<String, Object>> unitPriceRange() {
+        return esOrderService.unitPriceRange();
     }
 
     /**
