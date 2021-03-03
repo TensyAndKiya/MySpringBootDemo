@@ -113,13 +113,27 @@ public class ESTestController {
     }
 
     /**
-     * 各个价格区间的商品数量
+     * 各个价格区间的订单数量
+     * 根据double判断 es range是否是左闭右开
+     * 结果 -> 是
      *
      * @return
      */
     @RequestMapping("/unitPriceRange")
     public List<Map<String, Object>> unitPriceRange() {
         return esOrderService.unitPriceRange();
+    }
+
+    /**
+     * 各个购买数量区间的订单数量
+     * 根据整数判断 es range是否是左闭右开
+     * 结果 -> 是
+     *
+     * @return
+     */
+    @RequestMapping("/buyNumRange")
+    public List<Map<String, Object>> buyNumRange() {
+        return esOrderService.buyNumRange();
     }
 
     /**

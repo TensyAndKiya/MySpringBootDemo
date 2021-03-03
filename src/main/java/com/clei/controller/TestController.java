@@ -29,9 +29,9 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/test")
@@ -157,12 +157,12 @@ public class TestController {
      * @return
      */
     @GetMapping("addCookie")
-    public String addCookie(HttpServletResponse response, @RequestParam Map<String, String> cookieMap) {
+    public Map<String, String> addCookie(HttpServletResponse response, @RequestParam Map<String, String> cookieMap) {
         cookieMap.forEach((k, v) -> {
             Cookie cookie = new Cookie(k, v);
             response.addCookie(cookie);
         });
-        return cookieMap.toString();
+        return cookieMap;
     }
 
     /**
@@ -171,13 +171,10 @@ public class TestController {
      * @return
      */
     @GetMapping("getCookie")
-    public String addCookie(HttpServletRequest request) {
+    public Map<String, String> addCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        Map<String, String> map = new HashMap<>(cookies.length);
-        for (Cookie cookie : cookies) {
-            map.put(cookie.getName(), cookie.getValue());
-        }
-        return Arrays.toString(cookies);
+        Map<String, String> cookieMap = Arrays.stream(cookies).collect(Collectors.toMap(Cookie::getName, Cookie::getValue));
+        return cookieMap;
     }
 
     @PostMapping("addTransactionDog")

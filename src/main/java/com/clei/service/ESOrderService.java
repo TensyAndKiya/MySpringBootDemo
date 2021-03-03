@@ -258,7 +258,7 @@ public class ESOrderService implements ESService {
     }
 
     /**
-     * 各个价格区间的商品数量
+     * 各个价格区间的订单数量
      *
      * @return
      */
@@ -298,6 +298,46 @@ public class ESOrderService implements ESService {
     }
 
     /**
+     * 各个购买数量区间的订单数量
+     *
+     * @return
+     */
+    public List<Map<String, Object>> buyNumRange() {
+        String aggName = "buyNumRange";
+        RangeAggregationBuilder buyNumRange = AggregationBuilders.range(aggName).field("buyNum");
+        List<ESRange> range = getRange2();
+        // range 加上
+        range.forEach(r -> {
+            // 左闭右开的range
+            if (null == r.getFrom()) {
+                buyNumRange.addUnboundedTo(r.getKey(), r.getTo());
+            } else if (null == r.getTo()) {
+                buyNumRange.addUnboundedFrom(r.getKey(), r.getFrom());
+            } else {
+                buyNumRange.addRange(r.getKey(), r.getFrom(), r.getTo());
+            }
+        });
+        NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
+                .addAggregation(buyNumRange)
+                .withPageable(PageRequest.of(0, 1))
+                .build();
+        // 查询
+        Page<Order> result = orderRepository.search(nativeSearchQuery);
+        AggregatedPage<Order> aggregatedPage = (AggregatedPage<Order>) result;
+        ParsedRange parsedRange = (ParsedRange) aggregatedPage.getAggregation(aggName);
+        List<? extends Range.Bucket> buckets = parsedRange.getBuckets();
+        // 遍历处理
+        List<Map<String, Object>> list = buckets.stream().map(b -> {
+            Map<String, Object> m = new HashMap<>(3);
+            m.put("from", b.getFrom());
+            m.put("to", b.getTo());
+            m.put("count", b.getDocCount());
+            return m;
+        }).collect(Collectors.toList());
+        return list;
+    }
+
+    /**
      * 获得range
      *
      * @return
@@ -314,6 +354,31 @@ public class ESOrderService implements ESService {
         range2.setKey(range2.getFrom() + "-" + range2.getTo());
         ESRange range3 = new ESRange();
         range3.setFrom(4455.33D);
+        range3.setTo(null);
+        range3.setKey(range3.getFrom() + "-" + range3.getTo());
+        list.add(range1);
+        list.add(range2);
+        list.add(range3);
+        return list;
+    }
+
+    /**
+     * 获得range
+     *
+     * @return
+     */
+    private List<ESRange> getRange2() {
+        List<ESRange> list = new ArrayList<>(3);
+        ESRange range1 = new ESRange();
+        range1.setFrom(0D);
+        range1.setTo(11D);
+        range1.setKey(range1.getFrom() + "-" + range1.getTo());
+        ESRange range2 = new ESRange();
+        range2.setFrom(11D);
+        range2.setTo(20D);
+        range2.setKey(range2.getFrom() + "-" + range2.getTo());
+        ESRange range3 = new ESRange();
+        range3.setFrom(20D);
         range3.setTo(null);
         range3.setKey(range3.getFrom() + "-" + range3.getTo());
         list.add(range1);

@@ -1,6 +1,7 @@
 package com.clei.controller;
 
 import com.clei.entity.Dog;
+import com.clei.service.DogService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -9,11 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.clei.service.DogService;
-
-import java.util.*;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/dog")
@@ -48,10 +55,12 @@ public class DogController {
 		return dogService.getById(id);
 	}
 
-	@RequestMapping(value="getAll",method=RequestMethod.GET)
+	@RequestMapping(value = "getAll", method = RequestMethod.GET)
 	@ResponseBody
 	@ApiOperation(value = "获取所有狗子", notes = "没分页")
-	public Collection<Dog> getAll(){
+	public Collection<Dog> getAll(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		logger.info("setHeader");
 		return dogService.getAll();
 	}
 
