@@ -69,21 +69,13 @@ public class RedisConfig {
     @Bean
     public KeyGenerator keyGenerator() {
         return (obj, method, args) -> {
-            StringBuilder sb = new StringBuilder();
 
-            sb.append("C_");
-
-            sb.append(obj.getClass().getCanonicalName());
-
-            sb.append("_M_");
-
-            sb.append(method.getName());
-
-            sb.append("_ARGS");
-
-            sb.append(Arrays.toString(args));
-
-            String key = sb.toString();
+            String key = "C_" +
+                    obj.getClass().getCanonicalName() +
+                    "_M_" +
+                    method.getName() +
+                    "_ARGS" +
+                    Arrays.toString(args);
 
             logger.info("key : " + key);
 

@@ -5,6 +5,7 @@ import com.clei.config.runner.ListStrConfig;
 import com.clei.constant.Global;
 import com.clei.entity.Dog;
 import com.clei.entity.security.User;
+import com.clei.model.request.test.ValidateReq;
 import com.clei.service.DogService;
 import com.clei.service.security.UserService;
 import com.clei.util.RocketMQProducer;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -181,5 +183,10 @@ public class TestController {
     public String addTransactionDog(@RequestBody String json) {
         rocketMQProducer.sendTransactionMsg(MessageBuilder.withPayload(json).build(), null);
         return json;
+    }
+
+    @PostMapping("validate")
+    public ValidateReq validate(@Validated @RequestBody ValidateReq req) {
+        return req;
     }
 }
