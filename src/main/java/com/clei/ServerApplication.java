@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +24,10 @@ import java.util.Arrays;
 @EnableSwagger2
 // 启用schedule
 @EnableScheduling
+// 允许异步执行
+@EnableAsync
 public class ServerApplication {
+
     public static void main(String[] args) {
         // SpringApplication.run(ServerApplication.class, args);
         SpringApplication application = new SpringApplication(ServerApplication.class);
@@ -31,19 +35,20 @@ public class ServerApplication {
         application.run(args);
     }
 
-    public static void test(){
+    public static void test() {
         PasswordEncoder pe = new BCryptPasswordEncoder();
         for (int i = 0; i < 10; i++) {
             System.out.println(pe.encode("" + i));
         }
     }
+
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx){
+    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             System.out.println("Let's inspect the beans provided by Spring Boot :");
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
-            for(String name : beanNames){
+            for (String name : beanNames) {
                 System.out.println(name);
             }
         };

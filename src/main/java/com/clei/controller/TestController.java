@@ -6,6 +6,7 @@ import com.clei.constant.Global;
 import com.clei.entity.Dog;
 import com.clei.entity.security.User;
 import com.clei.model.request.test.ValidateReq;
+import com.clei.service.AsyncTaskService;
 import com.clei.service.DogService;
 import com.clei.service.security.UserService;
 import com.clei.util.RocketMQProducer;
@@ -48,6 +49,9 @@ public class TestController {
 
     @Autowired
     DogService dogService;
+
+    @Autowired
+    private AsyncTaskService asyncTaskService;
 
     @Autowired
     private RocketMQProducer rocketMQProducer;
@@ -188,5 +192,17 @@ public class TestController {
     @PostMapping("validate")
     public ValidateReq validate(@Validated @RequestBody ValidateReq req) {
         return req;
+    }
+
+    /**
+     * 异步任务测试
+     *
+     * @return
+     */
+    @GetMapping("/async")
+    public String async() {
+        asyncTaskService.handleTestData();
+        logger.info("请求执行完毕");
+        return "request over!";
     }
 }

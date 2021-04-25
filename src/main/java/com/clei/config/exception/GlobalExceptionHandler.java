@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     public String handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         logger.error("MethodArgumentNotValidException", e);
         BindingResult bindingResult = e.getBindingResult();
-        if (null == bindingResult || CollectionUtils.isEmpty(bindingResult.getAllErrors())) {
+        if (CollectionUtils.isEmpty(bindingResult.getAllErrors())) {
             return "参数错误";
         }
         return bindingResult.getAllErrors().stream()
