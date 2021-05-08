@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -22,10 +20,6 @@ import java.util.Arrays;
 @ServletComponentScan
 // 启用swagger2
 @EnableSwagger2
-// 启用schedule
-@EnableScheduling
-// 允许异步执行
-@EnableAsync
 public class ServerApplication {
 
     public static void main(String[] args) {

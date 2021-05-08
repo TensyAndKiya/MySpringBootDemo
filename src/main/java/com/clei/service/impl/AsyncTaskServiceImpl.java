@@ -26,5 +26,10 @@ public class AsyncTaskServiceImpl implements AsyncTaskService {
         } catch (Exception e) {
             logger.error("异步任务执行出错", e);
         }
+        // 异步任务异常处理测试
+        boolean isOdd = 1 == (1 & System.currentTimeMillis());
+        if (isOdd) {
+            throw new RuntimeException("竟然是奇数啊");
+        }
     }
 }
