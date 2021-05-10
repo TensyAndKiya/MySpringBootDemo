@@ -30,7 +30,7 @@
 
 <span id="hasaki">12345.00</span>
 
-<script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 
     // var errMsg = "${errMsg}";
@@ -62,22 +62,22 @@
             copyText();
 
             var dId = $("#dId").val();
-            if(isNaN(dId) || dId < 1){
+            if (isNaN(dId) || dId < 1) {
                 alert("请输入正整数！！！");
-            }else{
+            } else {
                 var str = "" + dId;
                 var i = str.indexOf(".");
-                if(i > 0){
-                    dId = str.substring(0,i);
+                if (i > 0) {
+                    dId = str.substring(0, i);
                 }
-                $.get("dog/getOne", {id: dId}, function (data) {
+                $.get("/dog/getOne", {id: dId}, function (data) {
                     alert(JSON.stringify(data));
                 })
             }
         });
         // get all
         $("#gA").click(function () {
-            $.get("dog/getAll", function (data) {
+            $.get("/dog/getAll", function (data) {
                 var dogs = data;
                 if (dogs.length > 0) {
                     var th = "<thead><tr><th>id</th><th>name</th><th>color</th></tr></thead>";
@@ -105,12 +105,12 @@
             console.log(token);
             $.ajax({
                 type: "POST",
-                url: "dog/add",
+                url: "/dog/add",
                 data: dog,
-                beforeSend: function(xhr){
-                     xhr.setRequestHeader(header,token)
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token)
                 },
-                success: function(){
+                success: function () {
                     $("#gA").click();
                 }
             });

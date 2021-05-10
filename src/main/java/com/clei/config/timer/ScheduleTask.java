@@ -3,7 +3,6 @@ package com.clei.config.timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author KIyA
  */
-@Component
+// @Component
 public class ScheduleTask {
 
     private final Logger logger = LoggerFactory.getLogger(ScheduleTask.class);

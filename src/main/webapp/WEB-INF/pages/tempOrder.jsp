@@ -13,26 +13,26 @@
     <title>Insert title here</title>
 </head>
 <body>
-开始时间：<input type="text" id="startDate" /><br/>
-结束时间：<input type="text" id="endDate" /><br/>
-第几页：<input type="text" id="page" /><br/>
-每页条数：<input type="text" id="size" /><br/>
+开始时间：<input type="text" id="startDate"/><br/>
+结束时间：<input type="text" id="endDate"/><br/>
+第几页：<input type="text" id="page"/><br/>
+每页条数：<input type="text" id="size"/><br/>
 <button id="getByPage" type="button">根据页检索</button>
 
 <table id="orderTable">
 
 </table>
 
-<script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         // getByPage
-        $("#getByPage").click(function(){
+        $("#getByPage").click(function () {
             console.log("根据页检索");
             var startDate = $("#startDate").val();
             var endDate = $("#endDate").val();
-            if(viewLimitByCurYear(startDate,endDate)){
-                $.get("tempOrder/getByPage",{
+            if (viewLimitByCurYear(startDate, endDate)) {
+                $.get("/tempOrder/getByPage", {
                     startDate: startDate,
                     endDate: endDate,
                     page: $("#page").val(),
@@ -40,9 +40,9 @@
                     parkLotId: "f635cb442b964a0da188fef47f852462",
                     carLicense: "川A588T0",
                     orderType: 0
-                }, function(data){
+                }, function (data) {
                     var orders = data;
-                    if(orders.length > 0){
+                    if (orders.length > 0) {
                         var th = "<thead><tr>";
                         var tableHead = orders[0];
                         $.each(tableHead,function(k,v){

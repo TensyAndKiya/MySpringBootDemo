@@ -15,12 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -120,6 +123,24 @@ public class TestController {
     @RequestMapping("getDogList")
     public List<Dog> getDogList() {
         return dogService.getDogList();
+    }
+
+    /**
+     * 展示用户信息
+     *
+     * @return
+     */
+    @RequestMapping("/userInfo")
+    @ResponseBody
+    public String showRoles() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        logger.info("isAuthenticated :{}", authentication.isAuthenticated());
+        logger.info("name :{}", authentication.getName());
+        logger.info("authorities :{}", authentication.getAuthorities());
+        logger.info("details :{}", authentication.getDetails());
+        logger.info("credentials :{}", authentication.getCredentials());
+        logger.info("principal :{}", authentication.getPrincipal());
+        return "see log";
     }
 
     /**

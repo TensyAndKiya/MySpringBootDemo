@@ -12,14 +12,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>INDEX</title>
-    <script type="text/javascript" src="static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
 <h2>Hello World!</h2>
-<a href="dog">dog</a>
-<a href="chat">chat</a>
-<a href="tempOrder">order</a>
-<a href="showRoles">showRoles</a>
+<a href="/page/view/dog">dog</a>
+<a href="/page/view/chat">chat</a>
+<a href="/page/view/tempOrder">order</a>
+<a href="/test/userInfo">showRoles</a>
 <a href="/logout">退出登陆</a>
 <form id="logout" action="/logout" method="post" style="display: none;">
 </form>
@@ -32,15 +32,15 @@
 
     var timestamp = 0;
 
-    function haha(num){
+    function haha(num) {
         var temp = getTimestamp();
-        if(temp - timestamp > 100){
+        if (temp - timestamp > 100) {
             alert(num);
             timestamp = getTimestamp();
         }
     }
 
-    function getTimestamp(){
+    function getTimestamp() {
         return new Date().getTime();
     }
 
