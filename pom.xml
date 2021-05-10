@@ -164,7 +164,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <!--换了几个版本。。2.1.0。。2.1.3等。。1.4.2有用-->
-        <!--<version>2.1.6.RELEASE</version>-->
+        <version>1.4.2.RELEASE</version>
         <configuration>
           <mainClass>com.clei.ServerApplication</mainClass>
           <skip>false</skip>
@@ -177,31 +177,30 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+      <!--<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <configuration>
           <encoding>UTF-8</encoding>
           <useDefaultDelimiters>true</useDefaultDelimiters>
         </configuration>
-      </plugin>
+      </plugin>-->
     </plugins>
-
 
     <resources>
       <!--解决jsp找不到的问题 注意  必须放在META-INF/resources目录下才能被访问到-->
-      <!-- 下面这段会导致target里的.ico文件有问题
-      <resource>
+      <!-- 下面这段会导致target里的.ico文件有问题 -->
+      <!--<resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
-      </resource>
+      </resource>-->
       <resource>
         <directory>src/main/webapp</directory>
-        <targetPath></targetPath>
+        <targetPath>META-INF/resources</targetPath>
         <includes>
           <include>**/**</include>
         </includes>
-      </resource>-->
+      </resource>
       <!-- maven profile -->
       <resource>
         <!--项目的默认资源目录，但是要排除不必要的文件，想要指定加入的再下面的resource指定 -->
