@@ -29,6 +29,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 跨域设置
+     * 方法1 如下
+     * 方法2 Filter中在Response中添加对应header
+     * 方法3 对接口或者controller使用@CrossOrigin注解
      *
      * @param registry
      */
@@ -36,8 +39,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowCredentials(true);
+                .allowedHeaders("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH")
+                // 是否允许浏览器发送cookie
+                .allowCredentials(true)
+                // 预检请求的有效期，单位秒，有效期内不用发出另一条预检请求
+                .maxAge(3600)
+        ;
     }
 
     @Bean(value = "multipartResolver")

@@ -59,8 +59,6 @@ public class DogController {
     @ResponseBody
     @ApiOperation(value = "获取所有狗子", notes = "没分页")
     public Collection<Dog> getAll(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        logger.info("setHeader");
         return dogService.getAll();
     }
 
