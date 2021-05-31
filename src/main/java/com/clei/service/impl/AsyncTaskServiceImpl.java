@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 异步任务服务类 impl
+ *
+ * @author KIyA
  */
 @Service
 public class AsyncTaskServiceImpl implements AsyncTaskService {

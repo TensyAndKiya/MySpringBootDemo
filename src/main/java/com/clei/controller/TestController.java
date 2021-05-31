@@ -6,6 +6,7 @@ import com.clei.constant.Global;
 import com.clei.entity.Dog;
 import com.clei.entity.security.User;
 import com.clei.model.request.test.ValidateReq;
+import com.clei.pojo.Person;
 import com.clei.service.AsyncTaskService;
 import com.clei.service.DogService;
 import com.clei.service.security.UserService;
@@ -58,6 +59,9 @@ public class TestController {
 
     @Autowired
     private RocketMQProducer rocketMQProducer;
+
+    @Autowired
+    private Person person;
 
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -225,5 +229,15 @@ public class TestController {
         asyncTaskService.handleTestData();
         logger.info("请求执行完毕");
         return "request over!";
+    }
+
+    /**
+     * 自定义starter测试
+     *
+     * @return
+     */
+    @GetMapping("/starter")
+    public Person person() {
+        return person;
     }
 }

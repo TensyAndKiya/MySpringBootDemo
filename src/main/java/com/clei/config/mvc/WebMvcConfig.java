@@ -29,9 +29,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 跨域设置
-     * 方法1 如下
+     * 方法1 实现WebMvcConfigurer 重写addCorsMappings方法 如下
      * 方法2 Filter中在Response中添加对应header
      * 方法3 对接口或者controller使用@CrossOrigin注解
+     * 方法4 返回新的CorsFilter
      *
      * @param registry
      */
@@ -40,7 +41,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedHeaders("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE", "CONNECT")
                 // 是否允许浏览器发送cookie
                 .allowCredentials(true)
                 // 预检请求的有效期，单位秒，有效期内不用发出另一条预检请求

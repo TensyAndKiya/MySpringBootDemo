@@ -12,8 +12,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -22,20 +21,19 @@ public class ControllerTest {
     @LocalServerPort
     private int port;
 
-    private URL base;
+    private URI base;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Before
-    public void setUp() throws MalformedURLException {
-        this.base = new URL("http://localhost:" + port + "/test/test");
+    public void setBase() {
+        this.base = URI.create("http://localhost:" + port + "/test/test");
     }
 
     @Test
     public void test(){
-        ResponseEntity<String> responseEntity = restTemplate.getForEntity(base.toString(),String.class);
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(base, String.class);
         Assert.assertThat(responseEntity.getBody(), Matchers.equalTo("test success!"));
     }
-
 }
