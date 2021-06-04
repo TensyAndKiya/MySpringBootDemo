@@ -1,0 +1,89 @@
+# 读取pom属性信息
+maven:
+  profiles:
+    active: '@profiles.active@'
+# random使用
+my:
+  bignumber: ${random.long}
+  number: ${random.int}
+  number.in.range: ${random.int[1024,65536]}
+  number.less.than.ten: ${random.int(10)}
+  secret: ${random.value}
+  uuid: ${random.uuid}
+redis:
+  expireTime: 30
+rocketmq:
+  name-server: 127.0.0.1:9876;127.0.0.1:9877
+  producer:
+    group: ProducerGroup
+# 通过在classpath添加banner.jpg gif png或者如下属性来设置banner图片
+# 也可以在classpath添加banner.txt
+# spring.banner.image.location=classpath:static/image/linkin.jpg
+spring:
+  banner:
+    charset: UTF-8
+    location: classpath:static/txt/banner.txt
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          merge-sql: true
+          slow-sql-millis: 2000
+        wall:
+          enabled: true
+      initial-size: 1
+      max-active: 4
+      max-open-prepared-statments: 30
+      max-wait: 30000
+      min-evictable-idle-time-millis: 30000
+      min-idle: 1
+      pool-prepared-statments: true
+      stat-view-servlet:
+        enabled: true
+        login-password: blackliuli
+        login-username: druid
+        url-pattern: /druid/*
+      test-on-borrow: 'false '
+      test-on-return: 'false '
+      test-while-idle: 'true '
+      time-between-eviction-runs-millis: 60000.0
+      type: com.alibaba.druid.pool.DruidDataSource
+      validation-query: SELECT 1 FROM DUAL
+      web-stat-filter:
+        enabled: true
+        exclusions: '*.js,*.css,*.jpg,*.png,*.ico,/druid/*'
+        profile-enable: true
+        session-stat-enable: true
+        url-pattern: /*
+    password: liuli
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: kiya
+  # elasticsearch
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+  redis:
+    database: 0
+    cluster:
+      nodes: 192.168.137.2:7001,192.168.137.2:7002,192.168.137.2:7003,192.168.137.2:7004,192.168.137.2:7005,192.168.137.2:7006
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 8
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+    password: liuli
+
+# 数组
+str:
+  strs:
+    - aaa
+    - bbb
+    - ccc
+    - ddd
+    - eee
+    - fff

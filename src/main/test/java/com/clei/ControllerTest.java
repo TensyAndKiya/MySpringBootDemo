@@ -1,20 +1,16 @@
 package com.clei;
 
-import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.Assert;
 
 import java.net.URI;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ControllerTest {
 
@@ -26,7 +22,7 @@ public class ControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Before
+    @BeforeAll
     public void setBase() {
         this.base = URI.create("http://localhost:" + port + "/test/test");
     }
@@ -34,6 +30,6 @@ public class ControllerTest {
     @Test
     public void test(){
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(base, String.class);
-        Assert.assertThat(responseEntity.getBody(), Matchers.equalTo("test success!"));
+        Assert.hasText(responseEntity.getBody(), "test success!");
     }
 }

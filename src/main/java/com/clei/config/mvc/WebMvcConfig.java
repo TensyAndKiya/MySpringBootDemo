@@ -39,10 +39,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                // When allowCredentials is true, allowedOrigins cannot contain the special value "*" since that cannot be set on the "Access-Control-Allow-Origin" response header. To allow credentials to a set of origins, list them explicitly or consider using "allowedOriginPatterns" instead.
+                // .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedHeaders("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE", "CONNECT")
                 // 是否允许浏览器发送cookie
+                // 下面这个为true的时候 不能使用allowedOrigins("*") 改为 allowedOriginPatterns("*")
                 .allowCredentials(true)
                 // 预检请求的有效期，单位秒，有效期内不用发出另一条预检请求
                 .maxAge(3600)

@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @author KIyA
  * @date 2020-10-28
  */
-@Document(indexName = "order_index", type = "_doc", createIndex = false)
+@Document(indexName = "order_index", createIndex = false)
 public class Order {
 
     /**
