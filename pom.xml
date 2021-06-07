@@ -213,8 +213,8 @@
                 </includes>
             </resource>
             <!-- maven profile -->
-            <resource>
-                <!--项目的默认资源目录，但是要排除不必要的文件，想要指定加入的再下面的resource指定 -->
+            <!--<resource>
+                &lt;!&ndash;项目的默认资源目录，但是要排除不必要的文件，想要指定加入的再下面的resource指定 &ndash;&gt;
                 <directory>${project.basedir}/src/main/resources</directory>
                 <excludes>
                     <exclude>home/*</exclude>
@@ -224,7 +224,7 @@
             <resource>
                 <directory>${project.basedir}/src/main/resources/${profiles.active}</directory>
                 <filtering>true</filtering>
-            </resource>
+            </resource>-->
         </resources>
 
         <testResources>
@@ -236,8 +236,8 @@
     </build>
 
     <!-- maven profile -->
-    <profiles>
-        <!--公司开发环境 -->
+    <!--<profiles>
+        &lt;!&ndash;公司开发环境 &ndash;&gt;
         <profile>
             <id>company</id>
             <properties>
@@ -247,12 +247,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <!-- home开发环境 -->
+        &lt;!&ndash; home开发环境 &ndash;&gt;
         <profile>
             <id>home</id>
             <properties>
                 <profiles.active>home</profiles.active>
             </properties>
         </profile>
-    </profiles>
+    </profiles>-->
 </project>

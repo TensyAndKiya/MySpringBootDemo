@@ -49,7 +49,7 @@ spring:
       test-on-borrow: 'false '
       test-on-return: 'false '
       test-while-idle: 'true '
-      time-between-eviction-runs-millis: 60000.0
+      time-between-eviction-runs-millis: 60000
       type: com.alibaba.druid.pool.DruidDataSource
       validation-query: SELECT 1 FROM DUAL
       web-stat-filter:
@@ -87,3 +87,13 @@ str:
     - ddd
     - eee
     - fff
+
+# 端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: shutdown
+  endpoint:
+    shutdown:
+      enabled: true

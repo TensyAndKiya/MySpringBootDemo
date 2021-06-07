@@ -1,9 +1,12 @@
 package com.clei;
 
+import com.clei.listener.ApplicationCloseListener;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,5 +49,22 @@ public class ServerApplication {
                 System.out.println(name);
             }
         };
+    }
+
+    @Bean
+    public ApplicationCloseListener applicationCloseListener() {
+        return new ApplicationCloseListener();
+    }
+
+    /**
+     * 要用的tomcat才行
+     *
+     * @return
+     */
+    @Bean
+    public ServletWebServerFactory servletWebServerFactory() {
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+        tomcat.addConnectorCustomizers(applicationCloseListener());
+        return tomcat;
     }
 }

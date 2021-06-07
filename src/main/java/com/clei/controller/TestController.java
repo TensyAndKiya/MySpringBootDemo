@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +40,7 @@ import java.nio.channels.WritableByteChannel;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,6 +65,9 @@ public class TestController {
 
     @Autowired
     private Person person;
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -239,5 +245,37 @@ public class TestController {
     @GetMapping("/starter")
     public Person person() {
         return person;
+    }
+
+    /**
+     * sleep
+     * 配合优雅停机操作测试的接口
+     *
+     * @param sleepSecond 睡眠秒数
+     * @return
+     */
+    @GetMapping("/sleep")
+    public String sleep(@RequestParam(value = "sleepSecond", required = false, defaultValue = "888") Integer sleepSecond) {
+        try {
+            logger.info("睡啦睡啦 {}秒后才醒", sleepSecond);
+            TimeUnit.SECONDS.sleep(sleepSecond);
+        } catch (Exception e) {
+            logger.error("睡眠被打断", e);
+            return "啊~";
+        }
+        return "睡醒了";
+    }
+
+    /**
+     * 优雅停机
+     * <p>
+     * 方法1 kill -15 pid
+     * 方法2 如下
+     * 方法3 actuator /actuator/shutdown
+     */
+    @GetMapping("/shutdown")
+    public void shutdown() {
+        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) applicationContext;
+        ctx.close();
     }
 }
