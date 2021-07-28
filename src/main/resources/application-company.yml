@@ -19,6 +19,7 @@ rocketmq:
 # 通过在classpath添加banner.jpg gif png或者如下属性来设置banner图片
 # 也可以在classpath添加banner.txt
 # spring.banner.image.location=classpath:static/image/linkin.jpg
+# spring.banner.location=classpath:static/banner.txt
 spring:
   banner:
     charset: UTF-8
@@ -77,6 +78,19 @@ spring:
         min-idle: 0
     timeout: 1000
     password: liuli
+  # devtools重启
+  devtools:
+    restart:
+      enabled: true
+      # 静态资源的改变不会重启
+      # If you want to keep those defaults and add additional exclusions,
+      # use the spring.devtools.restart.additional-exclude property instead
+      exclude: static/**
+      # 只有改变了这个文件才会触发重启
+      trigger-file: trigger.md
+  mvc:
+    log-request-details: true
+
 
 # 数组
 str:
@@ -97,3 +111,11 @@ management:
   endpoint:
     shutdown:
       enabled: true
+
+# 配合 spring.mvc.log-request-details打印请求详情
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+

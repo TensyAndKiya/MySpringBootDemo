@@ -37,11 +37,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-        <dependency>
+        <!-- 不太好用，关掉 -->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
@@ -176,7 +177,7 @@
                 <configuration>
                     <!-- 使用maven来控制profiles -->
                     <!-- mvn spring-boot:run app.profiles=company,test -->
-                    <profiles>${app.profiles}</profiles>
+                    <!--<profiles>${app.profiles}</profiles>-->
                     <mainClass>com.clei.ServerApplication</mainClass>
                     <skip>false</skip>
                 </configuration>
@@ -201,10 +202,22 @@
         <resources>
             <!--解决jsp找不到的问题 注意  必须放在META-INF/resources目录下才能被访问到-->
             <!-- 下面这段会导致target里的.ico文件有问题 -->
-            <!--<resource>
-              <directory>src/main/resources</directory>
-              <filtering>true</filtering>
-            </resource>-->
+            <!-- 不过滤ico文件就行了 -->
+            <!-- filtering作用：让其它资源文件通过使用@var@的方式获取到maven参数 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>static/**</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>static/**</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
             <resource>
                 <directory>src/main/webapp</directory>
                 <targetPath>META-INF/resources</targetPath>

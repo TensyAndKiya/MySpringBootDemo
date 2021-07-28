@@ -3,8 +3,13 @@ server:
   port: 8888
   tomcat:
     uri-encoding: utf-8
+  # 优雅停机
+  shutdown: graceful
 # 应用名称
 spring:
+  # 优雅停机等待时间
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
   application:
     name: SpringBootDemo
   mvc:
@@ -26,5 +31,6 @@ mybatis:
   mapper-locations: classpath:mappers/**/*Mapper.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 system:
   max-session: 100

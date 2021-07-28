@@ -44,6 +44,7 @@ public class AsyncConfig implements AsyncConfigurer, SchedulingConfigurer {
 
     /**
      * 异步任务线程池配置
+     * 也可以使用@Bean注册一个Executor bean
      *
      * @return
      */

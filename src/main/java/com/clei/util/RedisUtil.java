@@ -134,7 +134,7 @@ public class RedisUtil {
     public Boolean unlock(String key, Object value) {
         // 执行脚本
         Long result = redisTemplate.execute(UNLOCK_SCRIPT, Arrays.asList(key), value);
-        return result.equals(Long.valueOf(1));
+        return result.equals(1L);
     }
 
     /**
