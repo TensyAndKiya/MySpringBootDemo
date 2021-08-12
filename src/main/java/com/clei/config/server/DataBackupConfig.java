@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PreDestroy;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 应用关闭之前做数据备份
@@ -25,7 +24,7 @@ public class DataBackupConfig {
     public void dataBackup() {
         logger.info("数据备份 开始");
         try {
-            TimeUnit.SECONDS.sleep(20);
+            // TimeUnit.SECONDS.sleep(20);
             System.out.println("数据备份 结束");
         } catch (Exception e) {
             e.printStackTrace();

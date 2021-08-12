@@ -40,6 +40,10 @@ public class DogService {
         return dogMapper.getAll();
     }
 
+    public Collection<Dog> getAllAnonymous() {
+        return dogMapper.getAll();
+    }
+
     public Integer add(Dog dog) {
         return dogMapper.add(dog);
     }

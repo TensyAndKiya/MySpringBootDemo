@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.support.BeanDefinitionBuilder;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.messaging.support.MessageBuilder;
@@ -28,16 +30,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -277,5 +283,55 @@ public class TestController {
     public void shutdown() {
         ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) applicationContext;
         ctx.close();
+    }
+
+    /**
+     * 动态添加 controller
+     */
+    @RequestMapping("/addController")
+    public Collection<Dog> addController() throws Exception {
+        // 添加到BeanFactory
+        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) applicationContext;
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) ctx.getBeanFactory();
+        BeanDefinitionBuilder beanDefinition = BeanDefinitionBuilder.genericBeanDefinition(NewController.class);
+        String beanName = "newController";
+        beanFactory.registerBeanDefinition(beanName, beanDefinition.getRawBeanDefinition());
+        // 注册整个controller类
+        RequestMappingHandlerMapping handlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        Method method = handlerMapping.getClass().getSuperclass().getSuperclass().getDeclaredMethod("detectHandlerMethods", Object.class);
+        method.setAccessible(true);
+        NewController newController = (NewController) applicationContext.getBean(beanName);
+        // 使用bean实例或beanName都可以
+        // 之前newController.test()直接返回的对象，没有加@ResponseBody，结果它去找jsp了，报404
+        // method.invoke(handlerMapping, beanName);
+        method.invoke(handlerMapping, newController);
+        return newController.test();
+    }
+
+    /**
+     * 动态删除 controller
+     */
+    @RequestMapping("/deleteController")
+    public String addBean() throws Exception {
+        String beanName = "newController";
+        Object controller = applicationContext.getBean(beanName);
+        RequestMappingHandlerMapping handlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        Method mappingMethod = RequestMappingHandlerMapping.class.getDeclaredMethod("getMappingForMethod", Method.class, Class.class);
+        mappingMethod.setAccessible(Boolean.TRUE);
+        Class<?> clazz = controller.getClass();
+        Method[] methods = clazz.getDeclaredMethods();
+        // 删除接口
+        for (Method m : methods) {
+            RequestMappingInfo mappingInfo = (RequestMappingInfo) mappingMethod.invoke(handlerMapping, m, clazz);
+            if (null != mappingInfo) {
+                handlerMapping.unregisterMapping(mappingInfo);
+            }
+        }
+        // 注销bean
+        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) applicationContext;
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) ctx.getBeanFactory();
+        beanFactory.removeBeanDefinition(beanName);
+
+        return "success";
     }
 }
